@@ -1,143 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GEL Engineering & Welding - Expert Welding Services in North Wales & Cheshire</title>
-    <meta name="description"
-        content="GL Engineering & Welding provides expert TIG, MIG, and Stick welding services, structural welding, and custom fabrication in North Wales & Cheshire. Contact us for a free quote!">
-    <meta name="keywords"
-        content="welding, welder, tig welding, mig welding, stick welding, structural welding, custom fabrication, North Wales & Cheshire, metal fabrication, steel welding, aluminum welding">
+    <title>GEL Engineering and Welding LTD - Pipework & Fabrication Specialists - North Wales & Chester</title>
+    <meta name="description" content="GEL Engineering and Welding LTD: Specialist TIG/MIG/Stick welding, process & hygienic pipework, stainless steel fabrication, and structural welding for construction & food production in North Wales & Chester.">
+    <meta name="keywords" content="welding north wales, welder chester, pipework fabrication, hygienic pipework, dairy pipework, stainless steel fabrication, structural welding, site welding, construction welding, food production welding, GEL Engineering and Welding LTD">
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-    <link rel="canonical" href="https://www.glengineeringandwelding.co.uk/" />
-</head>
+    <link rel="canonical" href="https://www.glengineeringandwelding.co.uk/" /> <style>
+        .mobile-menu {
+            display: none; /* Hidden by default */
+        }
+        .mobile-menu.active {
+            display: block; /* Shown when active class is added by JS */
+        }
+        /* Ensure button icons toggle correctly */
+        .menu-open-icon { display: block; }
+        .menu-close-icon { display: none; }
+        button.active .menu-open-icon { display: none; }
+        button.active .menu-close-icon { display: block; }
+    </style>
 
-<body>
-    <div class="w-full">
-        <nav class="bg-white shadow-lg">
-            <div class="md:flex items-center justify-between py-2 px-8 md:px-12">
-                <div class="flex justify-between items-center">
-                    <div class="text-2xl font-bold text-gray-800 md:text-3xl">
-                        <a href="/" title="GL Engineering & Welding - Home"><span class="text-sky-500">GEL</span>
-                            Engineering & Welding</a>
-                    </div>
-                    <div class="md:hidden">
-                        <button type="button"
-                            class="block text-gray-800 hover:text-gray-700 focus:text-gray-700 focus:outline-none">
-                            <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">
-                                <path class="hidden"
-                                    d="M16.24 14.83a1 1 0 0 1-1.41 1.41L12 13.41l-2.83 2.83a1 1 0 0 1-1.41-1.41L10.59 12 7.76 9.17a1 1 0 0 1 1.41-1.41L12 10.59l2.83-2.83a1 1 0 0 1 1.41 1.41L13.41 12l2.83 2.83z" />
-                                <path
-                                    d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z" />
-                            </svg>
-                        </button>
-                    </div>
+</head>
+<body class="text-gray-800">
+
+<div class="w-full">
+
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto md:flex items-center justify-between py-2 px-8 md:px-12">
+            <div class="flex justify-between items-center">
+                <div class="text-2xl font-bold text-gray-800 md:text-3xl">
+                    <a href="/" title="GEL Engineering and Welding LTD - Home"><span class="text-sky-500">GEL</span> Engineering and Welding LTD</a>
                 </div>
-                <div class="flex flex-col md:flex-row hidden md:block -mx-2">
-                    <a href="/"
-                        class="text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2"
-                        title="Home">Home</a>
-                    <a href="#about"
-                        class="text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2"
-                        title="About">About</a>
-                    <a href="mailto:Glengineeringandwelding@gmail.com"
-                        class="text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2"
-                        title="Contact Us">Contact</a>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" type="button" class="block text-gray-800 hover:text-gray-700 focus:text-gray-700 focus:outline-none">
+                        <svg class="h-6 w-6 fill-current menu-open-icon" viewBox="0 0 24 24">
+                            <path d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z" />
+                        </svg>
+                        <svg class="h-6 w-6 fill-current menu-close-icon" viewBox="0 0 24 24">
+                           <path d="M16.24 14.83a1 1 0 0 1-1.41 1.41L12 13.41l-2.83 2.83a1 1 0 0 1-1.41-1.41L10.59 12 7.76 9.17a1 1 0 0 1 1.41-1.41L12 10.59l2.83-2.83a1 1 0 0 1 1.41 1.41L13.41 12l2.83 2.83z" />
+                        </svg>
+                    </button>
                 </div>
             </div>
-        </nav>
-        <div class="flex bg-white" style="height:600px;">
-            <div class="flex items-center text-center lg:text-left px-8 md:px-12 lg:w-1/2">
-                <div class="m-4">
-                    <h1 class="text-3xl font-semibold text-gray-800 md:text-4xl">Engineer & <span
-                            class="text-sky-500">Welder</span></h1>
-                    <div class="mt-4 text-sm text-gray-500 md:text-base">
-                        <p>With over 10 years of experience in the industry, GL Engineering and Welding is committed to
-                            delivering top-notch welding services to our clients in North Wales & Cheshire.</p>
-                        <p class="mt-1">Our skilled and certified welders work diligently to ensure each project is
-                            completed with the highest level of precision and quality.</p>
-                        <p class="mt-1">We strive to exceed our clients' expectations and provide exceptional customer
-                            service at competitive rates.</p>
-                        <p class="mt-4">We provide a wide range of welding services, including:</p>
-                        <ul class="list-disc p-4">
-                            <li>TIG Welding</li>
-                            <li>MIG Welding</li>
-                            <li>Stick Welding</li>
-                            <li>Structural Welding</li>
-                            <li>Custom Fabrication</li>
-                        </ul>
-                    </div>
-                    <div class="flex justify-center lg:justify-start mt-6">
-                        <a class="px-4 py-3 bg-gray-900 text-gray-200 text-xs font-semibold rounded hover:bg-gray-800"
-                            href="mailto:Glengineeringandwelding@gmail.com" title="Contact Us">Contact</a>
-                        <a class="mx-4 px-4 py-3 bg-gray-300 bg-sky-600 text-xs font-semibold rounded hover:bg-gray-400"
-                            href="https://www.linkedin.com/in/george-lee-741080150/" target="__blank"
-                            title="LinkedIn Profile">LinkedIn</a>
-                    </div>
-                </div>
-            </div>
-            <div class="hidden lg:block lg:w-1/2" style="clip-path:polygon(10% 0, 100% 0%, 100% 100%, 0 100%)">
-                <img class="h-full object-cover" src="/images/home2.jpeg" alt="Pipe welding on site">
+            <div id="mobile-menu" class="hidden md:flex flex-col md:flex-row md:items-center md:mx-0 mt-3 md:mt-0 mobile-menu">
+                <a href="/" class="text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2" title="Home">Home</a>
+                <a href="#about" class="text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2" title="About Us">About</a>
+                <a href="#services" class="text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2" title="Our Services">Services</a>
+                <a href="#gallery" class="text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2" title="Project Gallery">Gallery</a>
+                <a href="mailto:Glengineeringandwelding@gmail.com" class="text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2" title="Contact Us via Email">Contact</a>
+                 <span class="hidden md:inline-block text-gray-800 font-medium py-2 px-2 md:mx-2">
+                    Call: <a href="tel:01234567890" class="hover:text-sky-600">01234 567890</a> </span>
             </div>
         </div>
+    </nav>
 
-        <!--
-        <section id="about" class="mt-5 overflow-hidden text-neutral-700 bg-gray-200 py-12">
-            <div class="container mx-auto px-5 lg:px-32">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">Our Work</h2>
-                <div class="-m-1 flex flex-wrap md:-m-2">
+    <header class="flex bg-white" style="min-height: 600px;">
+        <div class="flex items-center text-center lg:text-left px-8 md:px-12 lg:w-1/2">
+            <div class="m-4">
+                <h1 class="text-3xl font-semibold text-gray-800 md:text-4xl">Specialist Engineering & <span class="text-sky-500">Welding Services</span></h1>
+                <div class="mt-4 text-sm text-gray-500 md:text-base">
+                    <p>GEL Engineering and Welding LTD provides expert welding and fabrication, specialising in high-quality process & hygienic pipework and stainless steel solutions for the construction and food production sectors across North Wales and Chester.</p>
+                    <p class="mt-1">With over 10 years of dedicated experience, our certified welders deliver precision, quality, and reliability for every project, ensuring compliance and client satisfaction.</p>
                     </div>
+                <div class="flex justify-center lg:justify-start mt-6">
+                    <a class="px-4 py-3 bg-sky-600 text-white text-sm font-semibold rounded hover:bg-sky-700" href="mailto:Glengineeringandwelding@gmail.com" title="Get a Free Quote">Get a Free Quote</a>
+                     <a class="mx-4 px-4 py-3 bg-gray-300 text-gray-900 text-sm font-semibold rounded hover:bg-gray-400" href="https://www.linkedin.com/in/george-lee-741080150/" target="_blank" title="View Profile on LinkedIn">LinkedIn Profile</a>
+                </div>
             </div>
-        </section>
-         -->
+        </div>
+        <div class="hidden lg:block lg:w-1/2" style="clip-path:polygon(10% 0, 100% 0%, 100% 100%, 0 100%)">
+             <img class="h-full w-full object-cover" src="/images/home2.jpeg" alt="Specialist pipe welding on site by GEL Engineering and Welding LTD">
+        </div>
+    </header>
 
-        <section class="mt-5 overflow-hidden text-neutral-700 bg-gray-100 py-12">
-            <div class="container mx-auto px-5 lg:px-32">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">Gallery</h2>
-                <div class="-m-1 flex flex-wrap md:-m-2">
-                    <div class="flex w-1/3 flex-wrap">
-                        <div class="w-full p-1 md:p-2">
-                            <img alt="welding project 1"
-                                class="block h-full w-full rounded-lg object-cover object-center"
-                                src="/images/feature1.jpeg">
+    <section id="about" class="py-12 bg-gray-50">
+        <div class="container mx-auto px-5 lg:px-32 text-center">
+            <h2 class="text-3xl font-semibold text-gray-800 mb-6">About Us</h2>
+            <p class="text-gray-600 max-w-3xl mx-auto mb-4">
+                GEL Engineering and Welding LTD, based in [Your Location/Base, e.g., Flintshire], is led by [Director's Name if desired, e.g., George Lee], an expert welder and fabricator with extensive experience, particularly in demanding environments like the food production and construction industries. We are committed to delivering high-quality, reliable, and compliant welding solutions throughout North Wales and Chester.
+            </p>
+            <p class="text-gray-600 max-w-3xl mx-auto">
+                Our focus is on understanding client needs and providing tailored fabrication and site services, from intricate hygienic pipework systems to robust structural components. We pride ourselves on precision, professionalism, and building lasting client relationships.
+            </p>
+        </div>
+    </section>
+
+    <section id="services" class="py-12 bg-white">
+        <div class="container mx-auto px-5 lg:px-16 text-center">
+            <h2 class="text-3xl font-semibold text-gray-800 mb-8">Our Specialist Services</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-gray-100 p-6 rounded-lg shadow-md text-left">
+                    <h3 class="text-xl font-semibold text-sky-600 mb-3">Process & Hygienic Pipework</h3>
+                    <p class="text-gray-600">
+                        Expert design, fabrication, and installation of stainless steel and carbon steel pipework systems. Specialising in hygienic/dairy pipework for the food and beverage industry, ensuring compliance with strict standards. Also providing process pipework solutions for various industrial applications.
+                    </p>
+                </div>
+                <div class="bg-gray-100 p-6 rounded-lg shadow-md text-left">
+                    <h3 class="text-xl font-semibold text-sky-600 mb-3">Stainless Steel Fabrication</h3>
+                    <p class="text-gray-600">
+                        Bespoke fabrication of stainless steel components, structures, tanks, platforms, and guards. High-quality TIG welding for durable and clean finishes suitable for food production, pharmaceutical, and architectural applications.
+                    </p>
+                </div>
+                 <div class="bg-gray-100 p-6 rounded-lg shadow-md text-left">
+                    <h3 class="text-xl font-semibold text-sky-600 mb-3">Structural Welding & Site Work</h3>
+                    <p class="text-gray-600">
+                        Providing certified structural welding services (MIG, Stick) for the construction industry, including beams, columns, and framework. Fully equipped for on-site welding, installation, modification, and repair work across North Wales and Chester.
+                    </p>
+                </div>
+                 </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="py-12 bg-gray-50">
+        <div class="container mx-auto px-5 lg:px-32">
+             <h2 class="text-3xl font-semibold text-gray-800 mb-8 text-center">Project Gallery</h2>
+            <div class="-m-1 flex flex-wrap md:-m-2">
+                <div class="flex w-full sm:w-1/2 md:w-1/3 flex-wrap">
+                    <div class="w-full p-1 md:p-2">
+                        <img alt="Hygienic pipework installation example" class="block h-full w-full rounded-lg object-cover object-center shadow-md" src="/images/feature1.jpeg">
                         </div>
+                </div>
+                 <div class="flex w-full sm:w-1/2 md:w-1/3 flex-wrap">
+                    <div class="w-full p-1 md:p-2">
+                        <img alt="Stainless steel fabrication project" class="block h-full w-full rounded-lg object-cover object-center shadow-md" src="/images/feature2.jpeg">
                     </div>
-                    <div class="flex w-1/3 flex-wrap">
-                        <div class="w-full p-1 md:p-2">
-                            <img alt="welding project 2"
-                                class="block h-full w-full rounded-lg object-cover object-center"
-                                src="/images/feature2.jpeg">
-                        </div>
+                </div>
+                <div class="flex w-full sm:w-1/2 md:w-1/3 flex-wrap">
+                    <div class="w-full p-1 md:p-2">
+                        <img alt="On-site structural welding work" class="block h-full w-full rounded-lg object-cover object-center shadow-md" src="/images/feature3.jpeg">
                     </div>
-                    <div class="flex w-1/3 flex-wrap">
-                        <div class="w-full p-1 md:p-2">
-                            <img alt="welding project 3"
-                                class="block h-full w-full rounded-lg object-cover object-center"
-                                src="/images/feature3.jpeg">
-                        </div>
+                </div>
+                <div class="flex w-full sm:w-1/2 md:w-1/3 flex-wrap">
+                    <div class="w-full p-1 md:p-2">
+                        <img alt="Custom TIG welding detail" class="block h-full w-full rounded-lg object-cover object-center shadow-md" src="/images/feature4.jpeg" />
                     </div>
-                    <div class="flex w-1/3 flex-wrap">
-                        <div class="w-full p-1 md:p-2">
-                            <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center"
-                                src="/images/feature4.jpeg" />
-                        </div>
+                </div>
+                 <div class="flex w-full sm:w-1/2 md:w-1/3 flex-wrap">
+                    <div class="w-full p-1 md:p-2">
+                         <img alt="Process pipework system example" class="block h-full w-full rounded-lg object-cover object-center shadow-md" src="/images/feature5.jpeg" />
                     </div>
-                    <div class="flex w-1/3 flex-wrap">
-                        <div class="w-full p-1 md:p-2">
-                            <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center"
-                                src="/images/feature5.jpeg" />
-                        </div>
-                    </div>
-                    <div class="flex w-1/3 flex-wrap">
-                        <div class="w-full p-1 md:p-2">
-                            <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center"
-                                src="/images/feature6.jpeg" />
-                        </div>
+                </div>
+                 <div class="flex w-full sm:w-1/2 md:w-1/3 flex-wrap">
+                    <div class="w-full p-1 md:p-2">
+                        <img alt="Site installation work by GEL Engineering" class="block h-full w-full rounded-lg object-cover object-center shadow-md" src="/images/feature6.jpeg" />
                     </div>
                 </div>
             </div>
-        </section>
-    </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-300 py-8">
+        <div class="container mx-auto px-5 text-center">
+            <p class="mb-4">
+                <a href="/" class="hover:text-sky-500 px-2">Home</a> |
+                <a href="#about" class="hover:text-sky-500 px-2">About</a> |
+                <a href="#services" class="hover:text-sky-500 px-2">Services</a> |
+                <a href="#gallery" class="hover:text-sky-500 px-2">Gallery</a> |
+                <a href="mailto:Glengineeringandwelding@gmail.com" class="hover:text-sky-500 px-2">Contact</a>
+            </p>
+            <p class="mb-2">
+                Phone: <a href="tel:01234567890" class="hover:text-sky-500">01234 567890</a> |
+                Email: <a href="mailto:Glengineeringandwelding@gmail.com" class="hover:text-sky-500">Glengineeringandwelding@gmail.com</a>
+            </p>
+            <p class="text-sm text-gray-500">
+                &copy; <span id="current-year"></span> GEL Engineering and Welding LTD. All rights reserved.
+            </p>
+             <p class="text-sm text-gray-500 mt-1">
+                Serving North Wales & Chester.
+             </p>
+        </div>
+    </footer>
+
+</div> <script>
+    // Mobile Menu Toggle
+    const menuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('active'); // Toggles visibility based on CSS
+        mobileMenu.classList.toggle('hidden'); // Tailwind specific toggle
+        menuButton.classList.toggle('active'); // Toggles button icon state based on CSS
+    });
+
+    // Set Current Year in Footer
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+</script>
+
 </body>
-<footer>
+</html>
