@@ -607,9 +607,9 @@
         <div class="mb-12 max-w-2xl">
             <span class="chip">Our work</span>
             <h2 class="mt-5 mb-4 text-4xl md:text-5xl font-extrabold leading-[1.05]">Workshop &amp; site gallery</h2>
-            <p class="text-lg text-slate-600">A selection of fabrication and welding projects across our core service areas.</p>
+            <p class="text-lg text-slate-600">Every photo from our recent projects, plus more from the workshop and site. Select a photo to enlarge.</p>
         </div>
-        <div class="grid grid-cols-2 gap-3 lg:grid-cols-3">
+        <div id="gallery-grid" class="grid grid-cols-2 gap-3 lg:grid-cols-4">
             <div class="aspect-[3/4]"><button type="button" class="tile" data-full="images/feature1-1080.webp" data-alt="Weld inspection inside a stainless steel vessel"><img src="images/feature1-1080.webp" srcset="images/feature1-480.webp 480w, images/feature1-800.webp 800w, images/feature1-1080.webp 1080w" sizes="(min-width: 1024px) 33vw, 50vw" width="1080" height="1920" alt="Weld inspection inside a stainless steel vessel" class="" loading="lazy" decoding="async"><span class="tile-cap">Internal weld inspection</span></button></div>
             <div class="aspect-[3/4]"><button type="button" class="tile" data-full="images/feature2-1080.webp" data-alt="Stainless steel pipework fabrication on site"><img src="images/feature2-1080.webp" srcset="images/feature2-480.webp 480w, images/feature2-800.webp 800w, images/feature2-1080.webp 1080w" sizes="(min-width: 1024px) 33vw, 50vw" width="1080" height="1920" alt="Stainless steel pipework fabrication on site" class="" loading="lazy" decoding="async"><span class="tile-cap">On-site fabrication</span></button></div>
             <div class="aspect-[3/4]"><button type="button" class="tile" data-full="images/feature3-1200.webp" data-alt="TIG-welded stainless steel elbow with tri-clamp fittings"><img src="images/feature3-1200.webp" srcset="images/feature3-480.webp 480w, images/feature3-800.webp 800w, images/feature3-1200.webp 1200w" sizes="(min-width: 1024px) 33vw, 50vw" width="1280" height="1707" alt="TIG-welded stainless steel elbow with tri-clamp fittings" class="" loading="lazy" decoding="async"><span class="tile-cap">TIG-welded elbow</span></button></div>
@@ -618,6 +618,7 @@
             <div class="aspect-[3/4]"><button type="button" class="tile" data-full="images/feature6-1200.webp" data-alt="Polished stainless steel fabricated component"><img src="images/feature6-1200.webp" srcset="images/feature6-480.webp 480w, images/feature6-800.webp 800w, images/feature6-1200.webp 1200w" sizes="(min-width: 1024px) 33vw, 50vw" width="1280" height="1707" alt="Polished stainless steel fabricated component" class="" loading="lazy" decoding="async"><span class="tile-cap">Stainless fabrication</span></button></div>
 
         </div>
+        <div class="mt-10 text-center"><button type="button" id="gallery-more" class="btn-pill btn-brand hidden"></button></div>
     </div>
 </section>
 <dialog id="lightbox" aria-label="Enlarged project photo">
@@ -821,17 +822,57 @@
     }, { threshold: 0.08 });
     document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
 
-    // Lightbox with prev/next
+    // Gallery: automatically include every photo from the projects slider (no duplicates),
+    // so photos added to a new project appear here too.
+    const galleryGrid = document.getElementById('gallery-grid');
+    const galleryMore = document.getElementById('gallery-more');
+    const inGallery = new Set(Array.from(galleryGrid.querySelectorAll('[data-full]')).map(b => b.dataset.full));
+    document.querySelectorAll('#project-track [data-full]').forEach(btn => {
+        if (inGallery.has(btn.dataset.full)) return;
+        inGallery.add(btn.dataset.full);
+        const wrap = document.createElement('div');
+        wrap.className = 'aspect-[3/4]';
+        const clone = btn.cloneNode(true);
+        const cloneImg = clone.querySelector('img');
+        if (cloneImg) cloneImg.sizes = '(min-width: 1024px) 25vw, 50vw';
+        wrap.appendChild(clone);
+        galleryGrid.appendChild(wrap);
+    });
+    // Show the first dozen photos, with a button for the rest
+    const GALLERY_PREVIEW = 12;
+    const galleryItems = Array.from(galleryGrid.children);
+    if (galleryItems.length > GALLERY_PREVIEW) {
+        let expanded = false;
+        const renderGallery = () => {
+            galleryItems.forEach((el, i) => el.classList.toggle('hidden', !expanded && i >= GALLERY_PREVIEW));
+            galleryMore.textContent = expanded ? 'Show fewer photos' : 'Show all ' + galleryItems.length + ' photos';
+        };
+        galleryMore.classList.remove('hidden');
+        galleryMore.addEventListener('click', () => {
+            expanded = !expanded;
+            renderGallery();
+            if (!expanded) document.getElementById('gallery').scrollIntoView({ behavior: 'smooth' });
+        });
+        renderGallery();
+    }
+
+    // Lightbox with prev/next (steps through the photos in the section that was clicked)
     const lightbox = document.getElementById('lightbox');
     const lbImg = lightbox.querySelector('img');
-    const tiles = Array.from(document.querySelectorAll('[data-full]'));
+    let tiles = [];
     let lbIndex = 0;
     const showTile = (i) => {
         lbIndex = (i + tiles.length) % tiles.length;
         lbImg.src = tiles[lbIndex].dataset.full;
         lbImg.alt = tiles[lbIndex].dataset.alt || '';
     };
-    tiles.forEach((t, i) => t.addEventListener('click', () => { showTile(i); lightbox.showModal(); }));
+    document.addEventListener('click', (e) => {
+        const tile = e.target.closest('[data-full]');
+        if (!tile) return;
+        tiles = Array.from(tile.closest('section').querySelectorAll('[data-full]'));
+        showTile(tiles.indexOf(tile));
+        lightbox.showModal();
+    });
     document.getElementById('lb-close').addEventListener('click', () => lightbox.close());
     document.getElementById('lb-prev').addEventListener('click', () => showTile(lbIndex - 1));
     document.getElementById('lb-next').addEventListener('click', () => showTile(lbIndex + 1));
