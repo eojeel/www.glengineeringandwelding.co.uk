@@ -265,6 +265,8 @@
         details > summary { list-style: none; cursor: pointer; }
         details > summary::-webkit-details-marker { display: none; }
 
+        button, a { touch-action: manipulation; }
+
         /* Reveal */
         .fade-up { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
         .fade-up.visible { opacity: 1; transform: none; }
@@ -464,7 +466,7 @@
                 <button type="button" id="project-next" class="grid size-12 place-items-center rounded-full bg-steel text-ink transition hover:bg-brand hover:text-white disabled:pointer-events-none disabled:opacity-40" aria-label="Next project"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
             </div>
         </div>
-        <div id="project-track" class="no-scrollbar relative flex snap-x snap-mandatory gap-8 overflow-x-auto scroll-smooth rounded-3xl" tabindex="0" role="region" aria-roledescription="carousel" aria-label="Recent projects">
+        <div id="project-track" class="no-scrollbar relative flex snap-x snap-mandatory gap-8 overflow-x-auto rounded-3xl" tabindex="0" role="region" aria-roledescription="carousel" aria-label="Recent projects">
             <article class="w-full shrink-0 snap-center" role="group" aria-roledescription="slide" aria-label="Project 1">
 <div class="mb-10 grid gap-6 lg:grid-cols-12 lg:items-end">
             <div class="lg:col-span-7">
@@ -846,8 +848,30 @@
     const nextBtn = document.getElementById('project-next');
     const countEl = document.getElementById('project-count');
     const dotsEl = document.getElementById('project-dots');
-    const slideIndex = () => Math.round(track.scrollLeft / (slides[0].offsetWidth + 32));
-    const goToSlide = (i) => track.scrollTo({ left: slides[Math.max(0, Math.min(slides.length - 1, i))].offsetLeft, behavior: 'smooth' });
+    const slideLeft = (i) => slides[i].offsetLeft - slides[0].offsetLeft;
+    // Nearest slide to the current scroll position
+    const slideIndex = () => {
+        let best = 0, dist = Infinity;
+        slides.forEach((_, n) => { const d = Math.abs(track.scrollLeft - slideLeft(n)); if (d < dist) { dist = d; best = n; } });
+        return best;
+    };
+    let targetIndex = null, snapTimer = null;
+    const goToSlide = (i) => {
+        i = Math.max(0, Math.min(slides.length - 1, i));
+        targetIndex = i;
+        const left = slideLeft(i);
+        // iOS Safari can cancel programmatic scrolls inside a mandatory scroll-snap container,
+        // so switch snapping off while we animate, then restore it.
+        track.style.scrollSnapType = 'none';
+        try { track.scrollTo({ left: left, behavior: 'smooth' }); } catch (err) { track.scrollLeft = left; }
+        clearTimeout(snapTimer);
+        snapTimer = setTimeout(() => {
+            if (Math.abs(track.scrollLeft - left) > 2) track.scrollLeft = left;
+            track.style.scrollSnapType = '';
+            targetIndex = null;
+            syncSlider();
+        }, 600);
+    };
     const dots = slides.map((_, i) => {
         const d = document.createElement('button');
         d.type = 'button';
@@ -857,19 +881,19 @@
         return d;
     });
     const syncSlider = () => {
-        const i = Math.max(0, Math.min(slides.length - 1, slideIndex()));
+        const i = targetIndex !== null ? targetIndex : slideIndex();
         countEl.textContent = (i + 1) + ' / ' + slides.length;
         prevBtn.disabled = i === 0;
         nextBtn.disabled = i === slides.length - 1;
         dots.forEach((d, n) => { d.className = 'h-2.5 rounded-full transition-all ' + (n === i ? 'w-8 bg-brand' : 'w-2.5 bg-line'); });
         slides.forEach((sl, n) => sl.setAttribute('aria-label', 'Project ' + (n + 1) + ' of ' + slides.length));
     };
-    prevBtn.addEventListener('click', () => goToSlide(slideIndex() - 1));
-    nextBtn.addEventListener('click', () => goToSlide(slideIndex() + 1));
+    prevBtn.addEventListener('click', () => goToSlide((targetIndex !== null ? targetIndex : slideIndex()) - 1));
+    nextBtn.addEventListener('click', () => goToSlide((targetIndex !== null ? targetIndex : slideIndex()) + 1));
     track.addEventListener('scroll', syncSlider, { passive: true });
     track.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft') { e.preventDefault(); goToSlide(slideIndex() - 1); }
-        if (e.key === 'ArrowRight') { e.preventDefault(); goToSlide(slideIndex() + 1); }
+        if (e.key === 'ArrowLeft') { e.preventDefault(); goToSlide((targetIndex !== null ? targetIndex : slideIndex()) - 1); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); goToSlide((targetIndex !== null ? targetIndex : slideIndex()) + 1); }
     });
     window.addEventListener('resize', syncSlider);
     syncSlider();
