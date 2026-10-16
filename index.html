@@ -466,7 +466,7 @@
                 <button type="button" id="project-next" class="grid size-12 place-items-center rounded-full bg-steel text-ink transition hover:bg-brand hover:text-white disabled:pointer-events-none disabled:opacity-40" aria-label="Next project"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
             </div>
         </div>
-        <div id="project-track" class="no-scrollbar relative flex snap-x snap-mandatory gap-8 overflow-x-auto rounded-3xl" tabindex="0" role="region" aria-roledescription="carousel" aria-label="Recent projects">
+        <div id="project-track" class="no-scrollbar relative flex snap-x snap-mandatory items-start gap-8 overflow-x-auto overflow-y-hidden rounded-3xl transition-[height] duration-300" tabindex="0" role="region" aria-roledescription="carousel" aria-label="Recent projects">
             <article class="w-full shrink-0 snap-center" role="group" aria-roledescription="slide" aria-label="Project 1">
 <div class="mb-10 grid gap-6 lg:grid-cols-12 lg:items-end">
             <div class="lg:col-span-7">
@@ -880,8 +880,15 @@
         dotsEl.appendChild(d);
         return d;
     });
+    // Size the track to the project being viewed so shorter projects leave no blank space
+    // and longer ones expand when you get to them.
+    const fitHeight = () => {
+        const i = targetIndex !== null ? targetIndex : slideIndex();
+        track.style.height = slides[i].offsetHeight + 'px';
+    };
     const syncSlider = () => {
         const i = targetIndex !== null ? targetIndex : slideIndex();
+        fitHeight();
         countEl.textContent = (i + 1) + ' / ' + slides.length;
         prevBtn.disabled = i === 0;
         nextBtn.disabled = i === slides.length - 1;
@@ -896,6 +903,11 @@
         if (e.key === 'ArrowRight') { e.preventDefault(); goToSlide((targetIndex !== null ? targetIndex : slideIndex()) + 1); }
     });
     window.addEventListener('resize', syncSlider);
+    // Re-fit when a slide's own height changes (e.g. lazy-loaded photos, wrapping text)
+    if ('ResizeObserver' in window) {
+        const slideObserver = new ResizeObserver(fitHeight);
+        slides.forEach(sl => slideObserver.observe(sl));
+    }
     syncSlider();
 
     // Quote form (submits via FormSubmit; falls back to a normal POST without JS)
