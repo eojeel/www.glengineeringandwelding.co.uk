@@ -29,7 +29,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
 
     <!-- Tailwind CSS (pre-built; see css/README.md) -->
     <link rel="stylesheet" href="/css/tailwind.css">
@@ -47,6 +47,7 @@
       "name": "GL Engineering and Welding LTD",
       "url": "https://www.glengineeringandwelding.co.uk/",
       "image": "https://www.glengineeringandwelding.co.uk/images/og-image.jpg",
+      "logo": "https://www.glengineeringandwelding.co.uk/images/logo.png",
       "telephone": "+447964283787",
       "email": "Glengineeringandwelding@gmail.com",
       "description": "Specialist TIG, MIG and Stick welding, process and hygienic pipework, stainless steel fabrication and structural welding for the food production and construction industries across North Wales and Chester.",
@@ -193,628 +194,286 @@
     </script>
 
     <style>
-        /* Base */
-        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        body { font-family: var(--font-sans); scroll-behavior: smooth; background: var(--color-paper); color: var(--color-ink); }
+        h1, h2, h3.display, .font-display { font-family: var(--font-display); font-variant-numeric: lining-nums; }
+        :focus-visible { outline: 3px solid var(--color-brand-light); outline-offset: 2px; }
 
         /* Navigation */
-        .mobile-menu { display: none; }
         .mobile-menu.active { display: block; }
-        .menu-open-icon { display: block; }
+        .nav-link { color: #26384a; font-size: 14px; font-weight: 500; letter-spacing: .02em; padding: 8px 2px; border-bottom: 2px solid transparent; transition: color .2s, border-color .2s; }
+        .nav-link:hover, .nav-link.is-active { color: var(--color-brand); border-bottom-color: var(--color-brand); }
         .menu-close-icon { display: none; }
         button.active .menu-open-icon { display: none; }
         button.active .menu-close-icon { display: block; }
-        .nav-link {
-            position: relative;
-            color: #374151;
-            padding: 6px 10px;
-            border-radius: 6px;
-            font-weight: 500;
-            transition: color 0.2s, background 0.2s;
-        }
-        .nav-link:hover { color: #0284c7; background: #f0f9ff; }
 
-        /* Hero */
-        .hero-clip { clip-path: polygon(8% 0, 100% 0%, 100% 100%, 0 100%); }
-        .hero-overlay {
-            background: linear-gradient(135deg, rgba(2,132,199,0.08) 0%, transparent 60%);
-        }
+        /* Buttons: square, engineered */
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 26px; font-size: 14px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; border: 2px solid transparent; transition: background .2s, color .2s, border-color .2s; text-decoration: none; }
+        .btn-primary { background: var(--color-brand); color: #fff; }
+        .btn-primary:hover { background: var(--color-brand-dark); }
+        .btn-light { background: #fff; color: var(--color-navy); }
+        .btn-light:hover { background: var(--color-brand-light); }
+        .btn-outline { border-color: rgba(255,255,255,.55); color: #fff; }
+        .btn-outline:hover { background: #fff; color: var(--color-navy); }
+        .btn-whatsapp { background: #1f9d55; color: #fff; }
+        .btn-whatsapp:hover { background: #167a42; }
 
-        /* Stats */
-        .stat-item { border-right: 1px solid #e5e7eb; }
-        .stat-item:last-child { border-right: none; }
+        /* Section scaffolding */
+        .eyebrow { display: inline-flex; align-items: center; gap: 12px; font-size: 12px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--color-brand); }
+        .eyebrow::before { content: ""; width: 28px; height: 2px; background: currentColor; }
+        .on-dark .eyebrow, .eyebrow.light { color: var(--color-brand-light); }
 
-        /* Service cards */
-        .service-card {
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
-            border: 1px solid #e5e7eb;
-        }
-        .service-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            border-color: #bae6fd;
-        }
-        .service-icon {
-            width: 52px; height: 52px;
-            background: #e0f2fe;
-            border-radius: 12px;
-            display: flex; align-items: center; justify-content: center;
-            margin-bottom: 16px;
-            transition: background 0.2s;
-        }
-        .service-card:hover .service-icon { background: #0284c7; }
-        .service-card:hover .service-icon svg { stroke: white; }
+        /* Offset double-square frame, echoing the logo mark */
+        .frame { position: relative; }
+        .frame::before { content: ""; position: absolute; inset: 0; transform: translate(-16px, 16px); border: 2px solid var(--color-brand); z-index: 0; }
+        .frame.light::before { border-color: var(--color-brand-light); }
+        .frame > * { position: relative; z-index: 1; }
 
-        /* USP cards */
-        .usp-card {
-            background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            padding: 24px;
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-        .usp-card:hover {
-            border-color: #7dd3fc;
-            box-shadow: 0 8px 24px rgba(14,165,233,0.12);
-        }
+        /* Lists */
+        .tick { position: relative; padding-left: 20px; }
+        .tick::before { content: ""; position: absolute; left: 0; top: .62em; width: 8px; height: 8px; background: var(--color-brand); }
 
         /* Gallery */
-        .gallery-item { position: relative; overflow: hidden; border-radius: 10px; }
-        .gallery-item img {
-            width: 100%; height: 100%; object-fit: cover;
-            transition: transform 0.4s ease;
-            display: block;
-        }
-        .gallery-item:hover img { transform: scale(1.06); }
-        .gallery-caption {
-            position: absolute; bottom: 0; left: 0; right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.75), transparent);
-            color: white; padding: 28px 16px 14px;
-            transform: translateY(100%);
-            transition: transform 0.35s ease;
-            font-size: 14px; font-weight: 500;
-        }
-        .gallery-item:hover .gallery-caption { transform: translateY(0); }
+        .gallery-btn { display: block; position: relative; overflow: hidden; width: 100%; height: 100%; background: var(--color-steel); cursor: zoom-in; }
+        .gallery-btn img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+        .gallery-btn:hover img { transform: scale(1.05); }
+        .gallery-cap { position: absolute; left: 0; bottom: 0; background: var(--color-navy); color: #fff; font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; padding: 8px 14px; }
+        dialog#lightbox { border: 0; padding: 0; background: transparent; max-width: 96vw; max-height: 96vh; overflow: visible; }
+        dialog#lightbox::backdrop { background: rgba(7,31,49,.92); }
+        dialog#lightbox img { max-width: 96vw; max-height: 90vh; width: auto; height: auto; display: block; margin: 0 auto; }
+        dialog#lightbox button { position: absolute; top: -40px; right: 0; color: #fff; font-size: 14px; letter-spacing: .1em; text-transform: uppercase; }
 
-        /* Testimonials */
-        .testimonial-card {
-            background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            padding: 28px;
-        }
-        .stars { color: #f59e0b; }
-
-        /* Contact cards */
-        .contact-card {
-            background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            padding: 24px;
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-        .contact-card:hover {
-            border-color: #7dd3fc;
-            box-shadow: 0 8px 24px rgba(14,165,233,0.12);
-        }
-
-        /* Buttons */
-        .btn-primary {
-            display: inline-flex; align-items: center; gap: 8px;
-            padding: 13px 24px;
-            background: #0284c7; color: white;
-            font-size: 15px; font-weight: 600; border-radius: 8px;
-            transition: background 0.2s, transform 0.15s;
-            text-decoration: none;
-        }
-        .btn-primary:hover { background: #0369a1; transform: translateY(-1px); }
-
-        .btn-secondary {
-            display: inline-flex; align-items: center; gap: 8px;
-            padding: 13px 24px;
-            background: white; color: #1f2937;
-            border: 2px solid #e5e7eb;
-            font-size: 15px; font-weight: 600; border-radius: 8px;
-            transition: border-color 0.2s, background 0.2s;
-            text-decoration: none;
-        }
-        .btn-secondary:hover { border-color: #0284c7; background: #f0f9ff; color: #0284c7; }
-
-        .btn-whatsapp {
-            display: inline-flex; align-items: center; gap: 8px;
-            padding: 13px 24px;
-            background: #25D366; color: white;
-            font-size: 15px; font-weight: 600; border-radius: 8px;
-            transition: background 0.2s, transform 0.15s;
-            text-decoration: none;
-        }
-        .btn-whatsapp:hover { background: #128C7E; transform: translateY(-1px); }
-
-        /* Section headers */
-        .section-label {
-            display: inline-block;
-            color: #0284c7; font-size: 13px; font-weight: 700;
-            letter-spacing: 0.1em; text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-
-        /* Divider line accent */
-        .title-accent {
-            width: 48px; height: 4px;
-            background: #0284c7; border-radius: 2px;
-            margin: 12px auto 0;
-        }
-        .title-accent.left { margin-left: 0; }
-
-        /* Industry badge */
-        .industry-badge {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: #f8fafc; border: 1px solid #e5e7eb;
-            border-radius: 100px; padding: 8px 16px;
-            font-size: 13px; font-weight: 500; color: #374151;
-        }
-
-        /* Scroll animation */
-        .fade-up {
-            opacity: 0; transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-        .fade-up.visible { opacity: 1; transform: translateY(0); }
+        /* Scroll reveal */
+        .fade-up { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+        .fade-up.visible { opacity: 1; transform: none; }
+        @media (prefers-reduced-motion: reduce) { .fade-up { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
 
         /* Mobile CTA bar */
-        .mobile-cta-bar {
-            display: none;
-            position: fixed; bottom: 0; left: 0; right: 0;
-            background: white; border-top: 1px solid #e5e7eb;
-            padding: 12px 16px; gap: 10px;
-            z-index: 100;
-        }
-        @media (max-width: 768px) {
-            .mobile-cta-bar { display: flex; }
-        }
+        .mobile-cta-bar { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--color-navy); padding: 10px 12px; gap: 8px; z-index: 100; }
+        @media (max-width: 768px) { .mobile-cta-bar { display: flex; } body { padding-bottom: 68px; } }
     </style>
 </head>
-<body class="text-gray-800 antialiased">
+<body class="antialiased">
 
 <!-- ===== NAVIGATION ===== -->
-<nav class="bg-white border-b border-gray-100 sticky top-0 z-50 shadow-sm">
+<nav class="bg-paper border-b border-line sticky top-0 z-50" aria-label="Main">
     <div class="container mx-auto px-6 lg:px-12">
-        <div class="flex items-center justify-between h-16">
-
-            <!-- Logo -->
-            <a href="/" title="GL Engineering and Welding LTD" class="flex items-center gap-2">
-                <div class="w-8 h-8 bg-sky-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
-                    </svg>
-                </div>
-                <span class="text-lg font-bold text-gray-900"><span class="text-sky-600">GL</span> Engineering</span>
+        <div class="flex items-center justify-between h-20">
+            <a href="/" title="GL Engineering and Welding LTD" class="flex items-center">
+                <span class="flex items-center gap-3" role="img" aria-label="GL Engineering and Welding LTD"><span class="text-right leading-none text-brand" aria-hidden="true"><span class="block font-display font-extrabold text-[17px] md:text-[22px] tracking-tight">GL ENGINEERING</span><span class="block font-display text-[10px] md:text-[12px] tracking-[.16em] mt-1.5">AND WELDING LTD</span></span><img src="images/logo-mark.png" width="160" height="164" alt="" class="h-11 md:h-12 w-auto"></span>
             </a>
-
-            <!-- Desktop Nav -->
-            <div class="hidden md:flex items-center gap-1">
-                <a href="/" class="nav-link">Home</a>
+            <div class="hidden lg:flex items-center gap-8">
                 <a href="#about" class="nav-link">About</a>
                 <a href="#services" class="nav-link">Services</a>
                 <a href="#why-us" class="nav-link">Why Us</a>
                 <a href="#gallery" class="nav-link">Gallery</a>
+                <a href="#faq" class="nav-link">FAQ</a>
                 <a href="#contact" class="nav-link">Contact</a>
             </div>
-
-            <!-- Desktop CTA -->
-            <div class="hidden md:flex items-center gap-3">
-                <a href="tel:+447964283787" class="flex items-center gap-2 text-sm font-semibold text-gray-700 hover:text-sky-600 transition-colors">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-                    </svg>
-                    +44 7964 283787
-                </a>
-                <a href="mailto:Glengineeringandwelding@gmail.com" class="btn-primary" style="padding: 9px 18px; font-size: 14px;">
-                    Get a Quote
-                </a>
+            <div class="hidden md:flex items-center gap-5">
+                <a href="tel:+447964283787" class="flex items-center gap-2 text-sm font-semibold text-ink hover:text-brand transition-colors"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> +44 7964 283787</a>
+                <a href="mailto:Glengineeringandwelding@gmail.com" class="btn btn-primary" style="padding:11px 20px;font-size:13px;">Get a Quote</a>
             </div>
-
-            <!-- Mobile Hamburger -->
-            <button id="mobile-menu-button" type="button" class="md:hidden p-2 rounded-md text-gray-600 hover:bg-gray-100">
-                <svg class="h-6 w-6 menu-open-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
-                </svg>
-                <svg class="h-6 w-6 menu-close-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                </svg>
+            <button id="mobile-menu-button" type="button" class="md:hidden p-2 text-ink" aria-label="Toggle menu" aria-controls="mobile-menu">
+                <svg class="menu-open-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+                <svg class="menu-close-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M6 6l12 12M18 6L6 18"/></svg>
             </button>
         </div>
-
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="mobile-menu pb-4 border-t border-gray-100 mt-1">
-            <div class="flex flex-col gap-1 pt-3">
-                <a href="/" class="nav-link">Home</a>
-                <a href="#about" class="nav-link mobile-nav-close">About</a>
-                <a href="#services" class="nav-link mobile-nav-close">Services</a>
-                <a href="#why-us" class="nav-link mobile-nav-close">Why Us</a>
-                <a href="#gallery" class="nav-link mobile-nav-close">Gallery</a>
-                <a href="#contact" class="nav-link mobile-nav-close">Contact</a>
-                <div class="mt-3 pt-3 border-t border-gray-100 flex gap-3">
-                    <a href="tel:+447964283787" class="btn-secondary flex-1 justify-center" style="padding: 10px 16px; font-size: 14px;">Call Now</a>
-                    <a href="mailto:Glengineeringandwelding@gmail.com" class="btn-primary flex-1 justify-center" style="padding: 10px 16px; font-size: 14px;">Get Quote</a>
-                </div>
-            </div>
+        <div id="mobile-menu" class="mobile-menu hidden pb-4">
+                <a href="#about" class="block py-3 border-b border-line text-ink font-medium mobile-nav-close">About</a>
+                <a href="#services" class="block py-3 border-b border-line text-ink font-medium mobile-nav-close">Services</a>
+                <a href="#why-us" class="block py-3 border-b border-line text-ink font-medium mobile-nav-close">Why Us</a>
+                <a href="#gallery" class="block py-3 border-b border-line text-ink font-medium mobile-nav-close">Gallery</a>
+                <a href="#faq" class="block py-3 border-b border-line text-ink font-medium mobile-nav-close">FAQ</a>
+                <a href="#contact" class="block py-3 border-b border-line text-ink font-medium mobile-nav-close">Contact</a>
         </div>
     </div>
 </nav>
 
 <!-- ===== HERO ===== -->
-<header class="relative bg-white overflow-hidden" style="min-height: 620px;">
-    <div class="hero-overlay absolute inset-0 pointer-events-none"></div>
-    <div class="container mx-auto px-6 lg:px-12 flex items-center" style="min-height: 620px;">
-
-        <!-- Left content -->
-        <div class="relative z-10 lg:w-1/2 py-16 lg:py-0">
-            <span class="section-label">North Wales &amp; Chester</span>
-            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mt-2 mb-5">
-                Precision Welding &amp;<br>
-                <span class="text-sky-600">Fabrication Specialists</span>
+<header id="top" class="on-dark bg-navy text-white relative overflow-hidden">
+    <div class="container mx-auto px-6 lg:px-12 grid lg:grid-cols-12 gap-14 items-center py-16 lg:py-24">
+        <div class="lg:col-span-7">
+            <span class="eyebrow">North Wales &amp; Chester</span>
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] mt-6 mb-6">
+                Precision welding &amp; <span class="text-brand-light">fabrication</span> specialists
             </h1>
-            <p class="text-gray-500 text-lg leading-relaxed max-w-lg mb-8">
+            <p class="text-lg leading-relaxed max-w-xl mb-10 text-slate-300">
                 From hygienic pipework in food production facilities to structural steelwork on construction sites — GL Engineering delivers quality you can rely on.
             </p>
-
-            <!-- CTAs -->
-            <div class="flex flex-wrap gap-3 mb-10">
-                <a href="tel:+447964283787" class="btn-primary">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-                    </svg>
-                    Call for a Quote
-                </a>
-                <a href="https://wa.me/447964283787?text=Hi%20George%2C%20I%27d%20like%20to%20discuss%20a%20welding%20project." target="_blank" rel="noopener" class="btn-whatsapp">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-                        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.554 4.103 1.523 5.824L.043 23.5l5.835-1.47A11.93 11.93 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.213-3.467.873.906-3.38-.233-.373A9.77 9.77 0 012.182 12C2.182 6.58 6.58 2.182 12 2.182S21.818 6.58 21.818 12 17.42 21.818 12 21.818z"/>
-                    </svg>
-                    WhatsApp
-                </a>
-                <a href="mailto:Glengineeringandwelding@gmail.com" class="btn-secondary">
-                    Email a Brief
-                </a>
-            </div>
-
-            <!-- Quick trust indicators -->
             <div class="flex flex-wrap gap-3">
-                <span class="industry-badge">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                    15+ Years Experience
-                </span>
-                <span class="industry-badge">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                    TIG / MIG / Stick Certified
-                </span>
-                <span class="industry-badge">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                    Food-Grade Compliant
-                </span>
+                <a href="tel:+447964283787" class="btn btn-light w-full sm:w-auto"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Call for a quote</a>
+                <a href="https://wa.me/447964283787?text=Hi%20George%2C%20I%27d%20like%20to%20discuss%20a%20welding%20project." target="_blank" rel="noopener" class="btn btn-outline w-full sm:w-auto"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.554 4.103 1.523 5.824L.043 23.5l5.835-1.47A11.93 11.93 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.213-3.467.873.906-3.38-.233-.373A9.77 9.77 0 012.182 12C2.182 6.58 6.58 2.182 12 2.182S21.818 6.58 21.818 12 17.42 21.818 12 21.818z"/></svg> WhatsApp</a>
+                <a href="mailto:Glengineeringandwelding@gmail.com" class="btn btn-outline w-full sm:w-auto"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Email a brief</a>
             </div>
         </div>
-
-        <!-- Right image -->
-        <div class="hidden lg:block lg:w-1/2 absolute right-0 top-0 bottom-0">
-            <div class="hero-clip h-full">
-                <img src="images/home2-782.webp" srcset="images/home2-480.webp 480w, images/home2-782.webp 782w" sizes="50vw" width="782" height="930" alt="GL Engineering specialist pipe welding on site" class="w-full h-full object-cover" loading="eager" fetchpriority="high" decoding="async">
+        <div class="lg:col-span-5 max-w-md lg:max-w-none mx-auto w-full pl-4">
+            <div class="frame light">
+                <img src="images/home2-782.webp" srcset="images/home2-480.webp 480w, images/home2-782.webp 782w" sizes="(min-width: 1024px) 40vw, 90vw" width="782" height="930" alt="GL Engineering specialist pipe welding on site" class="w-full aspect-[4/5] object-cover" loading="eager" fetchpriority="high" decoding="async">
             </div>
         </div>
     </div>
 </header>
 
-<!-- ===== STATS BAR ===== -->
-<div class="bg-sky-600 text-white py-6">
+<!-- ===== FACTS STRIP ===== -->
+<div class="bg-paper border-b border-line">
     <div class="container mx-auto px-6 lg:px-12">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-sky-500">
-            <div class="text-center px-4 py-2">
-                <div class="text-3xl font-extrabold">15+</div>
-                <div class="text-sky-200 text-sm mt-1 font-medium">Years Experience</div>
+        <dl class="grid grid-cols-2 lg:grid-cols-4">
+            <div class="py-7 pr-6 lg:border-r border-line">
+                <dt class="text-xs font-semibold tracking-[.18em] uppercase text-slate-500">In the trade</dt>
+                <dd class="font-display text-xl sm:text-2xl lg:text-3xl font-bold text-brand mt-1">15+ years</dd>
             </div>
-            <div class="text-center px-4 py-2">
-                <div class="text-3xl font-extrabold">3</div>
-                <div class="text-sky-200 text-sm mt-1 font-medium">Core Specialisms</div>
+            <div class="py-7 px-6 lg:border-r border-line">
+                <dt class="text-xs font-semibold tracking-[.18em] uppercase text-slate-500">Processes</dt>
+                <dd class="font-display text-xl sm:text-2xl lg:text-3xl font-bold text-brand mt-1">TIG · MIG · Stick</dd>
             </div>
-            <div class="text-center px-4 py-2">
-                <div class="text-3xl font-extrabold">2</div>
-                <div class="text-sky-200 text-sm mt-1 font-medium">Regions Covered</div>
+            <div class="py-7 pr-6 lg:px-6 lg:border-r border-line border-t lg:border-t-0">
+                <dt class="text-xs font-semibold tracking-[.18em] uppercase text-slate-500">Hygienic pipework</dt>
+                <dd class="font-display text-xl sm:text-2xl lg:text-3xl font-bold text-brand mt-1">Food-grade</dd>
             </div>
-            <div class="text-center px-4 py-2">
-                <div class="text-3xl font-extrabold">100%</div>
-                <div class="text-sky-200 text-sm mt-1 font-medium">Quality Focused</div>
+            <div class="py-7 px-6 border-t lg:border-t-0">
+                <dt class="text-xs font-semibold tracking-[.18em] uppercase text-slate-500">Coverage</dt>
+                <dd class="font-display text-xl sm:text-2xl lg:text-3xl font-bold text-brand mt-1">Fully mobile</dd>
             </div>
-        </div>
+        </dl>
     </div>
 </div>
 
-<!-- ===== INDUSTRIES TRUST BAR ===== -->
-<div class="bg-gray-50 border-b border-gray-200 py-5">
-    <div class="container mx-auto px-6 lg:px-12">
-        <p class="text-center text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4">Industries We Serve</p>
-        <div class="flex flex-wrap justify-center gap-4">
-            <span class="industry-badge">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                Food &amp; Beverage Production
-            </span>
-            <span class="industry-badge">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-                Construction &amp; Civil Engineering
-            </span>
-            <span class="industry-badge">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
-                Pharmaceutical &amp; Process
-            </span>
-            <span class="industry-badge">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-                Dairy &amp; Agricultural
-            </span>
-            <span class="industry-badge">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                Architectural &amp; Bespoke
-            </span>
-        </div>
+<!-- ===== INDUSTRIES ===== -->
+<div class="bg-steel">
+    <div class="container mx-auto px-6 lg:px-12 py-6 flex flex-col lg:flex-row lg:items-center gap-3 lg:gap-10">
+        <p class="text-xs font-bold tracking-[.2em] uppercase text-brand shrink-0">Industries we serve</p>
+        <ul class="flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium text-slate-700">
+            <li>Food &amp; Beverage Production</li>
+            <li>Construction &amp; Civil Engineering</li>
+            <li>Pharmaceutical &amp; Process</li>
+            <li>Dairy &amp; Agricultural</li>
+            <li>Architectural &amp; Bespoke</li>
+        </ul>
     </div>
 </div>
 
 <!-- ===== ABOUT ===== -->
-<section id="about" class="py-20 bg-white">
-    <div class="container mx-auto px-6 lg:px-12">
-        <div class="grid lg:grid-cols-2 gap-16 items-center">
-            <!-- Image -->
-            <div class="relative">
-                <div class="rounded-2xl overflow-hidden shadow-xl">
-                    <img src="images/home-1200.webp" srcset="images/home-480.webp 480w, images/home-800.webp 800w, images/home-1200.webp 1200w" sizes="(min-width: 1024px) 50vw, 100vw" width="1280" height="1707" alt="GL Engineering and Welding — precision stainless steel work" class="w-full h-96 object-cover" loading="lazy" decoding="async">
-                </div>
-                <!-- Floating badge -->
-                <div class="absolute -bottom-5 -right-5 bg-sky-600 text-white rounded-xl p-5 shadow-lg hidden sm:block">
-                    <div class="text-3xl font-extrabold">15+</div>
-                    <div class="text-sky-200 text-sm font-medium">Years in the trade</div>
-                </div>
+<section id="about" class="py-24 bg-paper">
+    <div class="container mx-auto px-6 lg:px-12 grid lg:grid-cols-12 gap-16 items-center">
+        <div class="lg:col-span-5 pl-4 fade-up">
+            <div class="frame">
+                <img src="images/feature1-1080.webp" srcset="images/feature1-480.webp 480w, images/feature1-800.webp 800w, images/feature1-1080.webp 1080w" sizes="(min-width: 1024px) 40vw, 90vw" width="1080" height="1920" alt="Weld inspection inside a stainless steel vessel" class="w-full aspect-[4/5] object-cover" loading="lazy" decoding="async">
             </div>
-
-            <!-- Content -->
-            <div>
-                <span class="section-label">About GL Engineering</span>
-                <h2 class="text-3xl font-extrabold text-gray-900 mt-2 mb-6">
-                    Built on Precision.<br>Driven by Quality.
-                </h2>
-                <p class="text-gray-600 leading-relaxed mb-4">
-                    GL Engineering and Welding LTD is led by <strong>George Lee</strong>, an expert welder and fabricator based in North Wales with extensive hands-on experience in some of the most demanding environments in the industry — from food-grade production facilities to large-scale construction sites.
-                </p>
-                <p class="text-gray-600 leading-relaxed mb-8">
-                    We combine specialist knowledge with a practical, client-first approach. Whether you need precise hygienic pipework systems, custom stainless steel fabrication, or certified structural welding on-site, we deliver results that meet the highest standards — on time, every time.
-                </p>
-
-                <!-- Key values -->
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="flex items-start gap-3">
-                        <div class="w-8 h-8 bg-sky-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                        </div>
-                        <div>
-                            <div class="font-semibold text-gray-800 text-sm">Certified Welder</div>
-                            <div class="text-gray-500 text-xs mt-0.5">TIG, MIG &amp; Stick qualified</div>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-3">
-                        <div class="w-8 h-8 bg-sky-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                        </div>
-                        <div>
-                            <div class="font-semibold text-gray-800 text-sm">Food-Grade Standards</div>
-                            <div class="text-gray-500 text-xs mt-0.5">Hygienic &amp; dairy compliant</div>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-3">
-                        <div class="w-8 h-8 bg-sky-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                        </div>
-                        <div>
-                            <div class="font-semibold text-gray-800 text-sm">Site &amp; Workshop</div>
-                            <div class="text-gray-500 text-xs mt-0.5">Fully mobile, on-site capable</div>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-3">
-                        <div class="w-8 h-8 bg-sky-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                        </div>
-                        <div>
-                            <div class="font-semibold text-gray-800 text-sm">Local &amp; Reliable</div>
-                            <div class="text-gray-500 text-xs mt-0.5">North Wales &amp; Chester</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        </div>
+        <div class="lg:col-span-7 fade-up">
+            <span class="eyebrow">About GL Engineering</span>
+            <h2 class="text-3xl md:text-4xl font-bold leading-tight mt-5 mb-6">Built on precision.<br>Driven by quality.</h2>
+            <p class="text-slate-600 leading-relaxed mb-4">
+                GL Engineering and Welding LTD is led by <strong>George Lee</strong>, an expert welder and fabricator based in North Wales with extensive hands-on experience in some of the most demanding environments in the industry — from food-grade production facilities to large-scale construction sites.
+            </p>
+            <p class="text-slate-600 leading-relaxed mb-10">
+                We combine specialist knowledge with a practical, client-first approach. Whether you need precise hygienic pipework systems, custom stainless steel fabrication, or certified structural welding on-site, we deliver results that meet the highest standards — on time, every time.
+            </p>
+            <dl class="grid sm:grid-cols-2 gap-x-10 gap-y-6">
+                <div class="border-t-2 border-brand pt-3"><dt class="font-semibold">Certified welder</dt><dd class="text-sm text-slate-500 mt-1">TIG, MIG &amp; Stick qualified</dd></div>
+                <div class="border-t-2 border-brand pt-3"><dt class="font-semibold">Food-grade standards</dt><dd class="text-sm text-slate-500 mt-1">Hygienic &amp; dairy compliant</dd></div>
+                <div class="border-t-2 border-brand pt-3"><dt class="font-semibold">Site &amp; workshop</dt><dd class="text-sm text-slate-500 mt-1">Fully mobile, on-site capable</dd></div>
+                <div class="border-t-2 border-brand pt-3"><dt class="font-semibold">Local &amp; reliable</dt><dd class="text-sm text-slate-500 mt-1">North Wales &amp; Chester</dd></div>
+            </dl>
         </div>
     </div>
 </section>
 
 <!-- ===== SERVICES ===== -->
-<section id="services" class="py-20 bg-gray-50">
+<section id="services" class="py-24 bg-steel">
     <div class="container mx-auto px-6 lg:px-12">
-        <div class="text-center mb-14">
-            <span class="section-label">What We Do</span>
-            <h2 class="text-3xl font-extrabold text-gray-900 mt-2">Our Specialist Services</h2>
-            <div class="title-accent"></div>
+        <div class="max-w-2xl mb-16">
+            <span class="eyebrow">What we do</span>
+            <h2 class="text-3xl md:text-4xl font-bold leading-tight mt-5">Our specialist services</h2>
         </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-            <!-- Service 1 -->
-            <div class="service-card bg-white rounded-xl p-8">
-                <div class="service-icon">
-                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-                    </svg>
+        <div class="space-y-24">
+            <article class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center fade-up">
+                <div class="lg:col-span-5   pl-4"><div class="frame"><img src="images/home-1200.webp" srcset="images/home-480.webp 480w, images/home-800.webp 800w, images/home-1200.webp 1200w" sizes="(min-width: 1024px) 40vw, 90vw" width="1280" height="1707" alt="Hygienic stainless steel process pipework installed in a food production plant" class="w-full aspect-[4/5] object-cover" loading="lazy" decoding="async"></div></div>
+                <div class="lg:col-span-7 ">
+                    <p class="font-display text-6xl font-bold text-brand/25 leading-none mb-3" aria-hidden="true">01</p>
+                    <h3 class="display text-2xl md:text-3xl font-bold mb-4">Process &amp; Hygienic Pipework</h3>
+                    <p class="text-slate-600 leading-relaxed mb-6 max-w-xl">Expert design, fabrication, and installation of stainless steel pipework systems to the highest hygienic standards — essential for food, beverage, dairy, and pharmaceutical environments.</p>
+                    <ul class="grid sm:grid-cols-2 gap-x-8 gap-y-2 mb-8 max-w-xl">
+                        <li class="tick text-sm text-slate-700">Hygienic &amp; dairy pipework</li>
+                        <li class="tick text-sm text-slate-700">Food-grade standards compliance</li>
+                        <li class="tick text-sm text-slate-700">Process pipework &amp; systems</li>
+                        <li class="tick text-sm text-slate-700">Full installation &amp; testing</li>
+                    </ul>
+                    <a href="#contact" class="inline-flex items-center gap-2 text-sm font-bold tracking-wider uppercase text-brand hover:text-brand-dark">Discuss this service <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
                 </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-3">Process &amp; Hygienic Pipework</h3>
-                <p class="text-gray-500 leading-relaxed mb-5">
-                    Expert design, fabrication, and installation of stainless steel pipework systems to the highest hygienic standards — essential for food, beverage, dairy, and pharmaceutical environments.
-                </p>
-                <ul class="space-y-2">
-                    <li class="flex items-center gap-2 text-sm text-gray-600">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                        Hygienic &amp; dairy pipework
-                    </li>
-                    <li class="flex items-center gap-2 text-sm text-gray-600">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                        Food-grade standards compliance
-                    </li>
-                    <li class="flex items-center gap-2 text-sm text-gray-600">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                        Process pipework &amp; systems
-                    </li>
-                    <li class="flex items-center gap-2 text-sm text-gray-600">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                        Full installation &amp; testing
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Service 2 -->
-            <div class="service-card bg-white rounded-xl p-8">
-                <div class="service-icon">
-                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
-                    </svg>
+            </article>
+            <article class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center fade-up">
+                <div class="lg:col-span-5 lg:order-2  pl-4"><div class="frame"><img src="images/feature3-1200.webp" srcset="images/feature3-480.webp 480w, images/feature3-800.webp 800w, images/feature3-1200.webp 1200w" sizes="(min-width: 1024px) 40vw, 90vw" width="1280" height="1707" alt="TIG-welded stainless steel elbow with flanges and tri-clamp fittings" class="w-full aspect-[4/5] object-cover" loading="lazy" decoding="async"></div></div>
+                <div class="lg:col-span-7 lg:order-1">
+                    <p class="font-display text-6xl font-bold text-brand/25 leading-none mb-3" aria-hidden="true">02</p>
+                    <h3 class="display text-2xl md:text-3xl font-bold mb-4">Stainless Steel Fabrication</h3>
+                    <p class="text-slate-600 leading-relaxed mb-6 max-w-xl">Bespoke TIG-welded stainless steel components crafted to precise specifications — delivering clean, durable finishes for demanding applications across multiple sectors.</p>
+                    <ul class="grid sm:grid-cols-2 gap-x-8 gap-y-2 mb-8 max-w-xl">
+                        <li class="tick text-sm text-slate-700">Tanks, vessels &amp; hoppers</li>
+                        <li class="tick text-sm text-slate-700">Platforms, walkways &amp; guards</li>
+                        <li class="tick text-sm text-slate-700">Custom bespoke components</li>
+                        <li class="tick text-sm text-slate-700">Architectural &amp; commercial</li>
+                    </ul>
+                    <a href="#contact" class="inline-flex items-center gap-2 text-sm font-bold tracking-wider uppercase text-brand hover:text-brand-dark">Discuss this service <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
                 </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-3">Stainless Steel Fabrication</h3>
-                <p class="text-gray-500 leading-relaxed mb-5">
-                    Bespoke TIG-welded stainless steel components crafted to precise specifications — delivering clean, durable finishes for demanding applications across multiple sectors.
-                </p>
-                <ul class="space-y-2">
-                    <li class="flex items-center gap-2 text-sm text-gray-600">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                        Tanks, vessels &amp; hoppers
-                    </li>
-                    <li class="flex items-center gap-2 text-sm text-gray-600">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                        Platforms, walkways &amp; guards
-                    </li>
-                    <li class="flex items-center gap-2 text-sm text-gray-600">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                        Custom bespoke components
-                    </li>
-                    <li class="flex items-center gap-2 text-sm text-gray-600">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                        Architectural &amp; commercial
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Service 3 -->
-            <div class="service-card bg-white rounded-xl p-8">
-                <div class="service-icon">
-                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M2 20h.01"/><path d="M7 20v-4"/><path d="M12 20v-8"/><path d="M17 20V8"/><path d="M22 4v16"/>
-                    </svg>
+            </article>
+            <article class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center fade-up">
+                <div class="lg:col-span-5   pl-4"><div class="frame"><img src="images/feature2-1080.webp" srcset="images/feature2-480.webp 480w, images/feature2-800.webp 800w, images/feature2-1080.webp 1080w" sizes="(min-width: 1024px) 40vw, 90vw" width="1080" height="1920" alt="On-site welding and pipework fabrication in progress" class="w-full aspect-[4/5] object-cover" loading="lazy" decoding="async"></div></div>
+                <div class="lg:col-span-7 ">
+                    <p class="font-display text-6xl font-bold text-brand/25 leading-none mb-3" aria-hidden="true">03</p>
+                    <h3 class="display text-2xl md:text-3xl font-bold mb-4">Structural Welding &amp; Site Work</h3>
+                    <p class="text-slate-600 leading-relaxed mb-6 max-w-xl">Certified structural welding using MIG and Stick processes for construction and civil engineering projects — fully equipped to mobilise for on-site work anywhere across North Wales and Chester.</p>
+                    <ul class="grid sm:grid-cols-2 gap-x-8 gap-y-2 mb-8 max-w-xl">
+                        <li class="tick text-sm text-slate-700">MIG &amp; Stick structural welding</li>
+                        <li class="tick text-sm text-slate-700">Beams, columns &amp; frameworks</li>
+                        <li class="tick text-sm text-slate-700">On-site installation &amp; repair</li>
+                        <li class="tick text-sm text-slate-700">Modification &amp; fabrication</li>
+                    </ul>
+                    <a href="#contact" class="inline-flex items-center gap-2 text-sm font-bold tracking-wider uppercase text-brand hover:text-brand-dark">Discuss this service <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
                 </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-3">Structural Welding &amp; Site Work</h3>
-                <p class="text-gray-500 leading-relaxed mb-5">
-                    Certified structural welding using MIG and Stick processes for construction and civil engineering projects — fully equipped to mobilise for on-site work anywhere across North Wales and Chester.
-                </p>
-                <ul class="space-y-2">
-                    <li class="flex items-center gap-2 text-sm text-gray-600">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                        MIG &amp; Stick structural welding
-                    </li>
-                    <li class="flex items-center gap-2 text-sm text-gray-600">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                        Beams, columns &amp; frameworks
-                    </li>
-                    <li class="flex items-center gap-2 text-sm text-gray-600">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                        On-site installation &amp; repair
-                    </li>
-                    <li class="flex items-center gap-2 text-sm text-gray-600">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                        Modification &amp; fabrication
-                    </li>
-                </ul>
-            </div>
+            </article>
 
-        </div>
-
-        <!-- Services CTA -->
-        <div class="text-center mt-12">
-            <a href="#contact" class="btn-primary">
-                Discuss Your Project
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </a>
         </div>
     </div>
 </section>
 
-<!-- ===== WHY CHOOSE US ===== -->
-<section id="why-us" class="py-20 bg-white">
+<!-- ===== WHY US ===== -->
+<section id="why-us" class="on-dark py-24 bg-navy text-white">
     <div class="container mx-auto px-6 lg:px-12">
-        <div class="text-center mb-14">
-            <span class="section-label">Why GL Engineering</span>
-            <h2 class="text-3xl font-extrabold text-gray-900 mt-2">The GL Difference</h2>
-            <div class="title-accent"></div>
+        <div class="max-w-2xl mb-14">
+            <span class="eyebrow">Why GL Engineering</span>
+            <h2 class="text-3xl md:text-4xl font-bold leading-tight mt-5">The GL difference</h2>
         </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-
-            <div class="usp-card">
-                <div class="w-11 h-11 bg-sky-100 rounded-xl flex items-center justify-center mb-4">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/>
-                    </svg>
-                </div>
-                <h3 class="font-bold text-gray-900 mb-2">Certified &amp; Experienced</h3>
-                <p class="text-gray-500 text-sm leading-relaxed">15+ years of hands-on experience with TIG, MIG and Stick welding across multiple demanding industries.</p>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 border-t border-l border-white/15">
+            <div class="p-8 border-r border-b border-white/15">
+                <p class="font-display text-lg font-bold text-brand-light mb-3" aria-hidden="true">01</p>
+                <h3 class="font-bold text-lg mb-2">Certified &amp; experienced</h3>
+                <p class="text-sm leading-relaxed text-slate-300">15+ years of hands-on experience with TIG, MIG and Stick welding across multiple demanding industries.</p>
             </div>
-
-            <div class="usp-card">
-                <div class="w-11 h-11 bg-sky-100 rounded-xl flex items-center justify-center mb-4">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
-                    </svg>
-                </div>
-                <h3 class="font-bold text-gray-900 mb-2">Standards Compliant</h3>
-                <p class="text-gray-500 text-sm leading-relaxed">Rigorous adherence to food-grade and hygienic standards for pipework and fabrication — your compliance is our priority.</p>
+            <div class="p-8 border-r border-b border-white/15">
+                <p class="font-display text-lg font-bold text-brand-light mb-3" aria-hidden="true">02</p>
+                <h3 class="font-bold text-lg mb-2">Standards compliant</h3>
+                <p class="text-sm leading-relaxed text-slate-300">Rigorous adherence to food-grade and hygienic standards for pipework and fabrication — your compliance is our priority.</p>
             </div>
-
-            <div class="usp-card">
-                <div class="w-11 h-11 bg-sky-100 rounded-xl flex items-center justify-center mb-4">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-                    </svg>
-                </div>
-                <h3 class="font-bold text-gray-900 mb-2">Reliable &amp; On-Time</h3>
-                <p class="text-gray-500 text-sm leading-relaxed">We understand that downtime costs money. We're committed to delivering on schedule and minimising disruption to your operations.</p>
+            <div class="p-8 border-r border-b border-white/15">
+                <p class="font-display text-lg font-bold text-brand-light mb-3" aria-hidden="true">03</p>
+                <h3 class="font-bold text-lg mb-2">Reliable &amp; on-time</h3>
+                <p class="text-sm leading-relaxed text-slate-300">We understand that downtime costs money. We're committed to delivering on schedule and minimising disruption to your operations.</p>
             </div>
-
-            <div class="usp-card">
-                <div class="w-11 h-11 bg-sky-100 rounded-xl flex items-center justify-center mb-4">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                    </svg>
-                </div>
-                <h3 class="font-bold text-gray-900 mb-2">Client-First Approach</h3>
-                <p class="text-gray-500 text-sm leading-relaxed">We take time to understand your project requirements and build lasting relationships — not just complete one-off jobs.</p>
+            <div class="p-8 border-r border-b border-white/15">
+                <p class="font-display text-lg font-bold text-brand-light mb-3" aria-hidden="true">04</p>
+                <h3 class="font-bold text-lg mb-2">Client-first approach</h3>
+                <p class="text-sm leading-relaxed text-slate-300">We take time to understand your project requirements and build lasting relationships — not just complete one-off jobs.</p>
             </div>
-
-            <div class="usp-card">
-                <div class="w-11 h-11 bg-sky-100 rounded-xl flex items-center justify-center mb-4">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                    </svg>
-                </div>
-                <h3 class="font-bold text-gray-900 mb-2">Uncompromising Quality</h3>
-                <p class="text-gray-500 text-sm leading-relaxed">Every weld, every joint, every finish — inspected to the highest standard before sign-off. Quality is non-negotiable.</p>
+            <div class="p-8 border-r border-b border-white/15">
+                <p class="font-display text-lg font-bold text-brand-light mb-3" aria-hidden="true">05</p>
+                <h3 class="font-bold text-lg mb-2">Uncompromising quality</h3>
+                <p class="text-sm leading-relaxed text-slate-300">Every weld, every joint, every finish — inspected to the highest standard before sign-off. Quality is non-negotiable.</p>
             </div>
-
-            <div class="usp-card">
-                <div class="w-11 h-11 bg-sky-100 rounded-xl flex items-center justify-center mb-4">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-                    </svg>
-                </div>
-                <h3 class="font-bold text-gray-900 mb-2">Fully Mobile</h3>
-                <p class="text-gray-500 text-sm leading-relaxed">Equipped to work on-site anywhere across North Wales and Chester — bringing our workshop quality directly to your location.</p>
+            <div class="p-8 border-r border-b border-white/15">
+                <p class="font-display text-lg font-bold text-brand-light mb-3" aria-hidden="true">06</p>
+                <h3 class="font-bold text-lg mb-2">Fully mobile</h3>
+                <p class="text-sm leading-relaxed text-slate-300">Equipped to work on-site anywhere across North Wales and Chester — bringing our workshop quality directly to your location.</p>
             </div>
 
         </div>
@@ -822,238 +481,121 @@
 </section>
 
 <!-- ===== GALLERY ===== -->
-<section id="gallery" class="py-20 bg-gray-50">
+<section id="gallery" class="py-24 bg-paper">
     <div class="container mx-auto px-6 lg:px-12">
-        <div class="text-center mb-14">
-            <span class="section-label">Our Work</span>
-            <h2 class="text-3xl font-extrabold text-gray-900 mt-2">Project Gallery</h2>
-            <div class="title-accent"></div>
-            <p class="text-gray-500 mt-4 max-w-xl mx-auto">A selection of recent fabrication and welding projects across our core service areas.</p>
+        <div class="max-w-2xl mb-12">
+            <span class="eyebrow">Our work</span>
+            <h2 class="text-3xl md:text-4xl font-bold leading-tight mt-5 mb-4">Project gallery</h2>
+            <p class="text-slate-600">A selection of recent fabrication and welding projects across our core service areas. Select an image to enlarge.</p>
         </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-
-            <div class="gallery-item shadow-md" style="height: 280px;">
-                <img src="images/feature1-1080.webp" srcset="images/feature1-480.webp 480w, images/feature1-800.webp 800w, images/feature1-1080.webp 1080w" sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" width="1080" height="1920" alt="Hygienic stainless steel pipework installation" loading="lazy" decoding="async">
-                <div class="gallery-caption">Hygienic Pipework Installation</div>
-            </div>
-
-            <div class="gallery-item shadow-md" style="height: 280px;">
-                <img src="images/feature2-1080.webp" srcset="images/feature2-480.webp 480w, images/feature2-800.webp 800w, images/feature2-1080.webp 1080w" sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" width="1080" height="1920" alt="Stainless steel fabrication project" loading="lazy" decoding="async">
-                <div class="gallery-caption">Stainless Steel Fabrication</div>
-            </div>
-
-            <div class="gallery-item shadow-md" style="height: 280px;">
-                <img src="images/feature3-1200.webp" srcset="images/feature3-480.webp 480w, images/feature3-800.webp 800w, images/feature3-1200.webp 1200w" sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" width="1280" height="1707" alt="On-site structural welding" loading="lazy" decoding="async">
-                <div class="gallery-caption">On-Site Structural Welding</div>
-            </div>
-
-            <div class="gallery-item shadow-md" style="height: 280px;">
-                <img src="images/feature4-1200.webp" srcset="images/feature4-480.webp 480w, images/feature4-800.webp 800w, images/feature4-1200.webp 1200w" sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" width="1280" height="1707" alt="Precision TIG welding detail work" loading="lazy" decoding="async">
-                <div class="gallery-caption">Precision TIG Weld Detail</div>
-            </div>
-
-            <div class="gallery-item shadow-md" style="height: 280px;">
-                <img src="images/feature5-1200.webp" srcset="images/feature5-480.webp 480w, images/feature5-800.webp 800w, images/feature5-1200.webp 1200w" sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" width="1280" height="1707" alt="Process pipework system" loading="lazy" decoding="async">
-                <div class="gallery-caption">Process Pipework System</div>
-            </div>
-
-            <div class="gallery-item shadow-md" style="height: 280px;">
-                <img src="images/feature6-1200.webp" srcset="images/feature6-480.webp 480w, images/feature6-800.webp 800w, images/feature6-1200.webp 1200w" sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" width="1280" height="1707" alt="Site installation and fabrication work" loading="lazy" decoding="async">
-                <div class="gallery-caption">Site Installation &amp; Fitting</div>
-            </div>
+        <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4">
+            <div class="aspect-[3/4]"><button type="button" class="gallery-btn" data-full="images/feature1-1080.webp" data-alt="Weld inspection inside a stainless steel vessel"><img src="images/feature1-1080.webp" srcset="images/feature1-480.webp 480w, images/feature1-800.webp 800w, images/feature1-1080.webp 1080w" sizes="(min-width: 1024px) 33vw, 50vw" width="1080" height="1920" alt="Weld inspection inside a stainless steel vessel" class="" loading="lazy" decoding="async"><span class="gallery-cap">Internal Weld Inspection</span></button></div>
+            <div class="aspect-[3/4]"><button type="button" class="gallery-btn" data-full="images/feature2-1080.webp" data-alt="Stainless steel pipework fabrication on site"><img src="images/feature2-1080.webp" srcset="images/feature2-480.webp 480w, images/feature2-800.webp 800w, images/feature2-1080.webp 1080w" sizes="(min-width: 1024px) 33vw, 50vw" width="1080" height="1920" alt="Stainless steel pipework fabrication on site" class="" loading="lazy" decoding="async"><span class="gallery-cap">On-Site Pipework Fabrication</span></button></div>
+            <div class="aspect-[3/4]"><button type="button" class="gallery-btn" data-full="images/feature3-1200.webp" data-alt="TIG-welded stainless steel elbow with tri-clamp fittings"><img src="images/feature3-1200.webp" srcset="images/feature3-480.webp 480w, images/feature3-800.webp 800w, images/feature3-1200.webp 1200w" sizes="(min-width: 1024px) 33vw, 50vw" width="1280" height="1707" alt="TIG-welded stainless steel elbow with tri-clamp fittings" class="" loading="lazy" decoding="async"><span class="gallery-cap">Stainless Elbow &amp; Flanges</span></button></div>
+            <div class="aspect-[3/4]"><button type="button" class="gallery-btn" data-full="images/feature4-1200.webp" data-alt="Stainless steel pipe run on stands in the workshop"><img src="images/feature4-1200.webp" srcset="images/feature4-480.webp 480w, images/feature4-800.webp 800w, images/feature4-1200.webp 1200w" sizes="(min-width: 1024px) 33vw, 50vw" width="1280" height="1707" alt="Stainless steel pipe run on stands in the workshop" class="" loading="lazy" decoding="async"><span class="gallery-cap">Pipe Run Fabrication</span></button></div>
+            <div class="aspect-[3/4]"><button type="button" class="gallery-btn" data-full="images/feature5-1200.webp" data-alt="Stainless steel pipework with bends and tri-clamp ends"><img src="images/feature5-1200.webp" srcset="images/feature5-480.webp 480w, images/feature5-800.webp 800w, images/feature5-1200.webp 1200w" sizes="(min-width: 1024px) 33vw, 50vw" width="1280" height="1707" alt="Stainless steel pipework with bends and tri-clamp ends" class="" loading="lazy" decoding="async"><span class="gallery-cap">Process Pipework</span></button></div>
+            <div class="aspect-[3/4]"><button type="button" class="gallery-btn" data-full="images/feature6-1200.webp" data-alt="Polished stainless steel fabricated component"><img src="images/feature6-1200.webp" srcset="images/feature6-480.webp 480w, images/feature6-800.webp 800w, images/feature6-1200.webp 1200w" sizes="(min-width: 1024px) 33vw, 50vw" width="1280" height="1707" alt="Polished stainless steel fabricated component" class="" loading="lazy" decoding="async"><span class="gallery-cap">Stainless Fabrication</span></button></div>
 
         </div>
     </div>
 </section>
+<dialog id="lightbox" aria-label="Enlarged project photo"><button type="button" id="lightbox-close">Close ✕</button><img src="" alt=""></dialog>
 
 <!-- ===== FAQ ===== -->
-<section id="faq" class="py-20 bg-gray-50">
-    <div class="container mx-auto px-6 lg:px-12">
-        <div class="text-center mb-14">
-            <span class="section-label">Common Questions</span>
-            <h2 class="text-3xl font-extrabold text-gray-900 mt-2">Welding &amp; Fabrication FAQs</h2>
-            <div class="title-accent"></div>
+<section id="faq" class="py-24 bg-steel">
+    <div class="container mx-auto px-6 lg:px-12 grid lg:grid-cols-12 gap-14">
+        <div class="lg:col-span-4">
+            <span class="eyebrow">Common questions</span>
+            <h2 class="text-3xl md:text-4xl font-bold leading-tight mt-5">Welding &amp; fabrication FAQs</h2>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-            <div class="usp-card">
-                <h3 class="font-bold text-gray-900 mb-2">What areas do you cover?</h3>
-                <p class="text-gray-500 text-sm leading-relaxed">We are based in North Wales and fully mobile across North Wales and Chester. For projects further afield, get in touch to discuss — we cover wider areas for the right project.</p>
+        <div class="lg:col-span-8 border-t border-line">
+            <div class="py-6 border-b border-line">
+                <h3 class="font-bold text-lg mb-2">What areas do you cover?</h3>
+                <p class="text-slate-600 leading-relaxed">We are based in North Wales and fully mobile across North Wales and Chester. For projects further afield, get in touch to discuss — we cover wider areas for the right project.</p>
             </div>
-            <div class="usp-card">
-                <h3 class="font-bold text-gray-900 mb-2">Which welding processes do you offer?</h3>
-                <p class="text-gray-500 text-sm leading-relaxed">We offer TIG, MIG and Stick welding. TIG is used for precision stainless steel fabrication and hygienic pipework, while MIG and Stick are used for structural steelwork and site welding.</p>
+            <div class="py-6 border-b border-line">
+                <h3 class="font-bold text-lg mb-2">Which welding processes do you offer?</h3>
+                <p class="text-slate-600 leading-relaxed">We offer TIG, MIG and Stick welding. TIG is used for precision stainless steel fabrication and hygienic pipework, while MIG and Stick are used for structural steelwork and site welding.</p>
             </div>
-            <div class="usp-card">
-                <h3 class="font-bold text-gray-900 mb-2">Do you install hygienic pipework for food and dairy sites?</h3>
-                <p class="text-gray-500 text-sm leading-relaxed">Yes. We design, fabricate and install stainless steel process and hygienic pipework to food-grade standards for food, beverage, dairy and pharmaceutical environments, including full installation and testing.</p>
+            <div class="py-6 border-b border-line">
+                <h3 class="font-bold text-lg mb-2">Do you install hygienic pipework for food and dairy sites?</h3>
+                <p class="text-slate-600 leading-relaxed">Yes. We design, fabricate and install stainless steel process and hygienic pipework to food-grade standards for food, beverage, dairy and pharmaceutical environments, including full installation and testing.</p>
             </div>
-            <div class="usp-card">
-                <h3 class="font-bold text-gray-900 mb-2">Do you work on-site or in a workshop?</h3>
-                <p class="text-gray-500 text-sm leading-relaxed">Both. We are fully mobile and can work on your site, and we also carry out fabrication to bring workshop-quality results directly to your location.</p>
+            <div class="py-6 border-b border-line">
+                <h3 class="font-bold text-lg mb-2">Do you work on-site or in a workshop?</h3>
+                <p class="text-slate-600 leading-relaxed">Both. We are fully mobile and can work on your site, and we also carry out fabrication to bring workshop-quality results directly to your location.</p>
             </div>
-            <div class="usp-card">
-                <h3 class="font-bold text-gray-900 mb-2">How do I get a quote?</h3>
-                <p class="text-gray-500 text-sm leading-relaxed">Call us, message us on WhatsApp, or email your drawings and specifications. We typically respond within a few hours.</p>
+            <div class="py-6 border-b border-line">
+                <h3 class="font-bold text-lg mb-2">How do I get a quote?</h3>
+                <p class="text-slate-600 leading-relaxed">Call us, message us on WhatsApp, or email your drawings and specifications. We typically respond within a few hours.</p>
             </div>
-            <div class="usp-card">
-                <h3 class="font-bold text-gray-900 mb-2">Which industries do you work in?</h3>
-                <p class="text-gray-500 text-sm leading-relaxed">Food and beverage production, construction and civil engineering, pharmaceutical and process, dairy and agricultural, and architectural and bespoke projects.</p>
+            <div class="py-6 border-b border-line">
+                <h3 class="font-bold text-lg mb-2">Which industries do you work in?</h3>
+                <p class="text-slate-600 leading-relaxed">Food and beverage production, construction and civil engineering, pharmaceutical and process, dairy and agricultural, and architectural and bespoke projects.</p>
             </div>
+
         </div>
     </div>
 </section>
 
 <!-- ===== CONTACT ===== -->
-<section id="contact" class="py-20 bg-white">
-    <div class="container mx-auto px-6 lg:px-12">
-        <div class="text-center mb-14">
-            <span class="section-label">Get In Touch</span>
-            <h2 class="text-3xl font-extrabold text-gray-900 mt-2">Start Your Project</h2>
-            <div class="title-accent"></div>
-            <p class="text-gray-500 mt-4 max-w-xl mx-auto">
-                Ready to discuss a project or need a quote? Reach out via any of the options below — we typically respond within a few hours.
-            </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-14">
-
-            <!-- Phone -->
-            <a href="tel:+447964283787" class="contact-card text-center group">
-                <div class="w-14 h-14 bg-sky-100 rounded-xl flex items-center justify-center mx-auto mb-4 transition-colors group-hover:bg-sky-600">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-colors group-hover:stroke-white">
-                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-                    </svg>
-                </div>
-                <h3 class="font-bold text-gray-900 mb-1">Call Us</h3>
-                <p class="text-sky-600 font-semibold">+44 7964 283787</p>
-                <p class="text-gray-400 text-sm mt-1">Mon–Fri, 7am–6pm</p>
-            </a>
-
-            <!-- WhatsApp -->
-            <a href="https://wa.me/447964283787?text=Hi%20George%2C%20I%27d%20like%20to%20discuss%20a%20welding%20project." target="_blank" rel="noopener" class="contact-card text-center group">
-                <div class="w-14 h-14 rounded-xl flex items-center justify-center mx-auto mb-4 transition-colors group-hover:bg-green-500" style="background:#dcfce7;">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="#16a34a" class="transition-colors group-hover:fill-white">
-                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-                        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.554 4.103 1.523 5.824L.043 23.5l5.835-1.47A11.93 11.93 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.213-3.467.873.906-3.38-.233-.373A9.77 9.77 0 012.182 12C2.182 6.58 6.58 2.182 12 2.182S21.818 6.58 21.818 12 17.42 21.818 12 21.818z"/>
-                    </svg>
-                </div>
-                <h3 class="font-bold text-gray-900 mb-1">WhatsApp</h3>
-                <p class="text-green-600 font-semibold">Message George</p>
-                <p class="text-gray-400 text-sm mt-1">Quick response guaranteed</p>
-            </a>
-
-            <!-- Email -->
-            <a href="mailto:Glengineeringandwelding@gmail.com" class="contact-card text-center group">
-                <div class="w-14 h-14 bg-sky-100 rounded-xl flex items-center justify-center mx-auto mb-4 transition-colors group-hover:bg-sky-600">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-colors group-hover:stroke-white">
-                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                        <polyline points="22,6 12,13 2,6"/>
-                    </svg>
-                </div>
-                <h3 class="font-bold text-gray-900 mb-1">Email</h3>
-                <p class="text-sky-600 font-semibold text-sm">Glengineeringandwelding<br>@gmail.com</p>
-                <p class="text-gray-400 text-sm mt-1">Send drawings &amp; specs</p>
-            </a>
-
-        </div>
-
-        <!-- Service Area Note -->
-        <div class="bg-sky-50 border border-sky-200 rounded-xl p-6 max-w-3xl mx-auto text-center">
-            <div class="flex items-center justify-center gap-2 mb-2">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
-                </svg>
-                <span class="font-semibold text-sky-700">Service Area</span>
+<section id="contact" class="py-24 bg-paper">
+    <div class="container mx-auto px-6 lg:px-12 grid lg:grid-cols-12 gap-14">
+        <div class="lg:col-span-5">
+            <span class="eyebrow">Get in touch</span>
+            <h2 class="text-3xl md:text-4xl font-bold leading-tight mt-5 mb-5">Start your project</h2>
+            <p class="text-slate-600 leading-relaxed mb-10">Ready to discuss a project or need a quote? Reach out via any of the options — we typically respond within a few hours.</p>
+            <div class="border-l-4 border-brand pl-5">
+                <p class="text-xs font-bold tracking-[.2em] uppercase text-brand mb-2">Service area</p>
+                <p class="text-slate-600 text-sm leading-relaxed">Based in <strong>North Wales</strong>, fully mobile across <strong>North Wales and Chester</strong>. For projects further afield, get in touch to discuss — we cover wider areas for the right project.</p>
             </div>
-            <p class="text-sky-700 text-sm">
-                Based in <strong>North Wales</strong>, fully mobile across <strong>North Wales and Chester</strong>. For projects further afield, get in touch to discuss — we cover wider areas for the right project.
-            </p>
         </div>
-
+        <div class="lg:col-span-7 border-t border-line">
+            <a href="tel:+447964283787" class="group flex items-center justify-between gap-6 py-7 border-b border-line">
+                <span><span class="block text-xs font-bold tracking-[.2em] uppercase text-slate-500">Call · Mon–Fri, 7am–6pm</span><span class="block font-sans text-2xl md:text-3xl font-bold text-brand mt-1">+44 7964 283787</span></span>
+                <span class="text-brand transition-transform group-hover:translate-x-1"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </a>
+            <a href="https://wa.me/447964283787?text=Hi%20George%2C%20I%27d%20like%20to%20discuss%20a%20welding%20project." target="_blank" rel="noopener" class="group flex items-center justify-between gap-6 py-7 border-b border-line">
+                <span><span class="block text-xs font-bold tracking-[.2em] uppercase text-slate-500">WhatsApp · quick response</span><span class="block font-display text-2xl md:text-3xl font-bold text-brand mt-1">Message George</span></span>
+                <span class="text-brand transition-transform group-hover:translate-x-1"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </a>
+            <a href="mailto:Glengineeringandwelding@gmail.com" class="group flex items-center justify-between gap-6 py-7 border-b border-line">
+                <span><span class="block text-xs font-bold tracking-[.2em] uppercase text-slate-500">Email · send drawings &amp; specs</span><span class="block font-sans text-lg md:text-xl font-bold text-brand mt-1 break-all">Glengineeringandwelding@gmail.com</span></span>
+                <span class="text-brand transition-transform group-hover:translate-x-1"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </a>
+        </div>
     </div>
 </section>
 
 <!-- ===== FOOTER ===== -->
-<footer class="bg-gray-900 text-gray-300">
-    <!-- Main Footer -->
-    <div class="container mx-auto px-6 lg:px-12 py-14">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-
-            <!-- Brand -->
-            <div class="lg:col-span-2">
-                <a href="/" class="flex items-center gap-2 mb-4">
-                    <div class="w-9 h-9 bg-sky-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
-                        </svg>
-                    </div>
-                    <span class="text-lg font-bold text-white"><span class="text-sky-400">GL</span> Engineering and Welding LTD</span>
-                </a>
-                <p class="text-gray-400 text-sm leading-relaxed max-w-sm mb-5">
-                    Specialist welding and fabrication services across North Wales and Chester. Hygienic pipework, stainless steel fabrication, and structural welding — delivered to the highest standards.
-                </p>
-                <div class="flex gap-3">
-                    <a href="https://www.linkedin.com/in/george-lee-741080150/" target="_blank" rel="noopener"
-                       class="w-9 h-9 bg-gray-800 hover:bg-sky-600 rounded-lg flex items-center justify-center transition-colors"
-                       title="GL Engineering on LinkedIn">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
-                        </svg>
-                    </a>
-                    <a href="https://wa.me/447964283787" target="_blank" rel="noopener"
-                       class="w-9 h-9 bg-gray-800 hover:bg-green-600 rounded-lg flex items-center justify-center transition-colors"
-                       title="WhatsApp GL Engineering">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.554 4.103 1.523 5.824L.043 23.5l5.835-1.47A11.93 11.93 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.213-3.467.873.906-3.38-.233-.373A9.77 9.77 0 012.182 12C2.182 6.58 6.58 2.182 12 2.182S21.818 6.58 21.818 12 17.42 21.818 12 21.818z"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Services -->
-            <div>
-                <h4 class="text-white font-semibold mb-5">Services</h4>
-                <ul class="space-y-3 text-sm">
-                    <li><a href="#services" class="text-gray-400 hover:text-sky-400 transition-colors">Process &amp; Hygienic Pipework</a></li>
-                    <li><a href="#services" class="text-gray-400 hover:text-sky-400 transition-colors">Stainless Steel Fabrication</a></li>
-                    <li><a href="#services" class="text-gray-400 hover:text-sky-400 transition-colors">Structural Welding &amp; Site Work</a></li>
-                    <li><a href="#gallery" class="text-gray-400 hover:text-sky-400 transition-colors">View Project Gallery</a></li>
-                    <li><a href="#faq" class="text-gray-400 hover:text-sky-400 transition-colors">FAQs</a></li>
-                </ul>
-            </div>
-
-            <!-- Contact -->
-            <div>
-                <h4 class="text-white font-semibold mb-5">Contact</h4>
-                <ul class="space-y-3 text-sm">
-                    <li class="flex items-start gap-2 text-gray-400">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 flex-shrink-0">
-                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-                        </svg>
-                        <a href="tel:+447964283787" class="hover:text-sky-400 transition-colors">+44 7964 283787</a>
-                    </li>
-                    <li class="flex items-start gap-2 text-gray-400">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 flex-shrink-0">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
-                        </svg>
-                        <a href="mailto:Glengineeringandwelding@gmail.com" class="hover:text-sky-400 transition-colors break-all">Glengineeringandwelding@gmail.com</a>
-                    </li>
-                    <li class="flex items-start gap-2 text-gray-400">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 flex-shrink-0">
-                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
-                        </svg>
-                        <span>North Wales &amp; Chester</span>
-                    </li>
-                </ul>
-            </div>
-
+<footer class="bg-navy text-slate-300">
+    <div class="container mx-auto px-6 lg:px-12 py-16 grid sm:grid-cols-2 lg:grid-cols-12 gap-12">
+        <div class="lg:col-span-5">
+            <div class="mb-6"><span class="flex items-center gap-3" role="img" aria-label="GL Engineering and Welding LTD"><span class="text-right leading-none text-white" aria-hidden="true"><span class="block font-display font-extrabold text-[17px] md:text-[22px] tracking-tight">GL ENGINEERING</span><span class="block font-display text-[10px] md:text-[12px] tracking-[.16em] mt-1.5">AND WELDING LTD</span></span><img src="images/logo-mark-white.png" width="160" height="164" alt="" class="h-11 md:h-12 w-auto"></span></div>
+            <p class="text-sm leading-relaxed max-w-sm mb-6 text-slate-400">Specialist welding and fabrication services across North Wales and Chester. Hygienic pipework, stainless steel fabrication, and structural welding — delivered to the highest standards.</p>
+            <a href="https://www.linkedin.com/in/george-lee-741080150/" target="_blank" rel="noopener" class="text-sm font-semibold tracking-wider uppercase text-brand-light hover:text-white transition-colors" title="GL Engineering on LinkedIn">LinkedIn →</a>
+        </div>
+        <div class="lg:col-span-3">
+            <h3 class="text-xs font-bold tracking-[.2em] uppercase text-white mb-5">Services</h3>
+            <ul class="space-y-3 text-sm">
+                <li><a href="#services" class="hover:text-white transition-colors">Process &amp; Hygienic Pipework</a></li>
+                <li><a href="#services" class="hover:text-white transition-colors">Stainless Steel Fabrication</a></li>
+                <li><a href="#services" class="hover:text-white transition-colors">Structural Welding &amp; Site Work</a></li>
+                <li><a href="#gallery" class="hover:text-white transition-colors">View Project Gallery</a></li>
+                <li><a href="#faq" class="hover:text-white transition-colors">FAQs</a></li>
+            </ul>
+        </div>
+        <div class="lg:col-span-4">
+            <h3 class="text-xs font-bold tracking-[.2em] uppercase text-white mb-5">Contact</h3>
+            <ul class="space-y-3 text-sm">
+                <li><a href="tel:+447964283787" class="hover:text-white transition-colors">+44 7964 283787</a></li>
+                <li><a href="mailto:Glengineeringandwelding@gmail.com" class="hover:text-white transition-colors break-all">Glengineeringandwelding@gmail.com</a></li>
+                <li>North Wales &amp; Chester</li>
+            </ul>
         </div>
     </div>
-
-    <!-- Bottom bar -->
-    <div class="border-t border-gray-800 py-5">
-        <div class="container mx-auto px-6 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-2 text-sm text-gray-500">
+    <div class="border-t border-white/10 py-5">
+        <div class="container mx-auto px-6 lg:px-12 flex flex-col sm:flex-row justify-between gap-2 text-xs text-slate-500">
             <p>&copy; <span id="current-year"></span> GL Engineering and Welding LTD. All rights reserved.</p>
             <p>Serving North Wales &amp; Chester</p>
         </div>
@@ -1062,35 +604,20 @@
 
 <!-- ===== MOBILE CTA BAR ===== -->
 <div class="mobile-cta-bar">
-    <a href="tel:+447964283787" class="btn-primary flex-1 justify-center" style="padding: 11px 16px; font-size: 14px;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-        </svg>
-        Call Now
-    </a>
-    <a href="https://wa.me/447964283787?text=Hi%20George%2C%20I%27d%20like%20to%20discuss%20a%20welding%20project." target="_blank" rel="noopener" class="btn-whatsapp flex-1 justify-center" style="padding: 11px 16px; font-size: 14px;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.554 4.103 1.523 5.824L.043 23.5l5.835-1.47A11.93 11.93 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.213-3.467.873.906-3.38-.233-.373A9.77 9.77 0 012.182 12C2.182 6.58 6.58 2.182 12 2.182S21.818 6.58 21.818 12 17.42 21.818 12 21.818z"/>
-        </svg>
-        WhatsApp
-    </a>
+    <a href="tel:+447964283787" class="btn btn-light flex-1" style="padding:12px 14px;font-size:13px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Call now</a>
+    <a href="https://wa.me/447964283787?text=Hi%20George%2C%20I%27d%20like%20to%20discuss%20a%20welding%20project." target="_blank" rel="noopener" class="btn btn-whatsapp flex-1" style="padding:12px 14px;font-size:13px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.554 4.103 1.523 5.824L.043 23.5l5.835-1.47A11.93 11.93 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.37l-.36-.213-3.467.873.906-3.38-.233-.373A9.77 9.77 0 012.182 12C2.182 6.58 6.58 2.182 12 2.182S21.818 6.58 21.818 12 17.42 21.818 12 21.818z"/></svg> WhatsApp</a>
 </div>
 
 <script>
-    // Mobile Menu Toggle
+    // Mobile menu
     const menuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
-
     menuButton.addEventListener('click', () => {
-        mobileMenu.classList.toggle('active');
         mobileMenu.classList.toggle('hidden');
         menuButton.classList.toggle('active');
     });
-
-    // Close mobile menu on link click
     document.querySelectorAll('.mobile-nav-close').forEach(link => {
         link.addEventListener('click', () => {
-            mobileMenu.classList.remove('active');
             mobileMenu.classList.add('hidden');
             menuButton.classList.remove('active');
         });
@@ -1099,30 +626,18 @@
     // Dynamic year
     document.getElementById('current-year').textContent = new Date().getFullYear();
 
-    // Scroll-based active nav link
-    const sections = document.querySelectorAll('section[id], header');
+    // Active nav link
     const navLinks = document.querySelectorAll('.nav-link');
-
-    const observer = new IntersectionObserver((entries) => {
+    const navObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                navLinks.forEach(link => {
-                    link.style.color = '';
-                    link.style.background = '';
-                });
-                const activeLink = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
-                if (activeLink) {
-                    activeLink.style.color = '#0284c7';
-                    activeLink.style.background = '#f0f9ff';
-                }
+                navLinks.forEach(l => l.classList.toggle('is-active', l.getAttribute('href') === '#' + entry.target.id));
             }
         });
     }, { rootMargin: '-40% 0px -55% 0px' });
+    document.querySelectorAll('section[id]').forEach(sec => navObserver.observe(sec));
 
-    sections.forEach(section => observer.observe(section));
-
-    // Fade-up scroll animation
-    const fadeEls = document.querySelectorAll('.fade-up');
+    // Scroll reveal
     const fadeObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -1131,7 +646,20 @@
             }
         });
     }, { threshold: 0.1 });
-    fadeEls.forEach(el => fadeObserver.observe(el));
+    document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
+
+    // Gallery lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+    document.querySelectorAll('[data-full]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            lightboxImg.src = btn.dataset.full;
+            lightboxImg.alt = btn.dataset.alt || '';
+            lightbox.showModal();
+        });
+    });
+    document.getElementById('lightbox-close').addEventListener('click', () => lightbox.close());
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) lightbox.close(); });
 </script>
 
 </body>
