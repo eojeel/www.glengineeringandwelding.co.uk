@@ -1,0 +1,17 @@
+@import "tailwindcss";
+@source "../index.html";
+
+@theme {
+  --color-brand: #064b74;
+  --color-brand-dark: #04385a;
+  --color-brand-light: #6fb1dd;
+  --color-navy: #071f31;
+  --color-navy-2: #0b2c45;
+  --color-ink: #0f1b27;
+  --color-paper: #fdfdfb;
+  --color-steel: #eef1f3;
+  --color-line: #d8dee3;
+  --font-display: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-brand: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
