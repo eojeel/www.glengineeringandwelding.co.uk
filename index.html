@@ -235,10 +235,6 @@
         .chip::before { content: ""; width: 6px; height: 6px; border-radius: 9999px; background: currentColor; }
         .chip-dark { background: rgba(255,255,255,.12); color: #fff; border: 1px solid rgba(255,255,255,.2); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
 
-        /* Marquee */
-        .marquee { animation: marquee 45s linear infinite; }
-        @keyframes marquee { to { transform: translateX(-50%); } }
-
         .no-scrollbar { scrollbar-width: none; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
 
@@ -273,7 +269,6 @@
         .fade-up.visible { opacity: 1; transform: none; }
         @media (prefers-reduced-motion: reduce) {
             .fade-up { opacity: 1; transform: none; transition: none; }
-            .marquee { animation: none; flex-wrap: wrap; width: auto; }
             html { scroll-behavior: auto; }
         }
 
@@ -353,14 +348,9 @@
 
 <!-- ===== INDUSTRIES MARQUEE ===== -->
 <div class="overflow-hidden bg-brand py-4 text-white" aria-label="Industries we serve">
-    <div class="marquee flex w-max">
-        <ul class="flex shrink-0 items-center gap-x-12 pr-12 text-sm font-semibold">
-            <li>Food &amp; Beverage Production</li><li class="opacity-40" aria-hidden="true">◆</li><li>Construction &amp; Civil Engineering</li><li class="opacity-40" aria-hidden="true">◆</li><li>Pharmaceutical &amp; Process</li><li class="opacity-40" aria-hidden="true">◆</li><li>Dairy &amp; Agricultural</li><li class="opacity-40" aria-hidden="true">◆</li><li>Architectural &amp; Bespoke</li><li class="opacity-40" aria-hidden="true">◆</li>
-        </ul>
-        <ul class="flex shrink-0 items-center gap-x-12 pr-12 text-sm font-semibold" aria-hidden="true">
-            <li>Food &amp; Beverage Production</li><li class="opacity-40">◆</li><li>Construction &amp; Civil Engineering</li><li class="opacity-40">◆</li><li>Pharmaceutical &amp; Process</li><li class="opacity-40">◆</li><li>Dairy &amp; Agricultural</li><li class="opacity-40">◆</li><li>Architectural &amp; Bespoke</li><li class="opacity-40">◆</li>
-        </ul>
-    </div>
+    <ul class="container mx-auto flex flex-wrap items-center justify-center gap-x-8 gap-y-2 px-6 text-center text-sm font-semibold">
+        <li>Food &amp; Beverage Production</li><li class="opacity-40" aria-hidden="true">◆</li><li>Construction &amp; Civil Engineering</li><li class="opacity-40" aria-hidden="true">◆</li><li>Pharmaceutical &amp; Process</li><li class="opacity-40" aria-hidden="true">◆</li><li>Dairy &amp; Agricultural</li><li class="opacity-40" aria-hidden="true">◆</li><li>Architectural &amp; Bespoke</li>
+    </ul>
 </div>
 
 <!-- ===== ABOUT ===== -->
