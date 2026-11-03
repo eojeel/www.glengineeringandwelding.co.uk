@@ -235,6 +235,11 @@
         .chip::before { content: ""; width: 6px; height: 6px; border-radius: 9999px; background: currentColor; }
         .chip-dark { background: rgba(255,255,255,.12); color: #fff; border: 1px solid rgba(255,255,255,.2); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
 
+        /* Industries strip */
+        .industries { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 28px; }
+        .industries .sep { display: none; }
+        @media (min-width: 1024px) { .industries { column-gap: 22px; } .industries .sep { display: block; } }
+
         .no-scrollbar { scrollbar-width: none; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
 
@@ -348,8 +353,8 @@
 
 <!-- ===== INDUSTRIES MARQUEE ===== -->
 <div class="overflow-hidden bg-brand py-4 text-white" aria-label="Industries we serve">
-    <ul class="container mx-auto flex flex-wrap items-center justify-center gap-x-8 gap-y-2 px-6 text-center text-sm font-semibold">
-        <li>Food &amp; Beverage Production</li><li class="opacity-40" aria-hidden="true">◆</li><li>Construction &amp; Civil Engineering</li><li class="opacity-40" aria-hidden="true">◆</li><li>Pharmaceutical &amp; Process</li><li class="opacity-40" aria-hidden="true">◆</li><li>Dairy &amp; Agricultural</li><li class="opacity-40" aria-hidden="true">◆</li><li>Architectural &amp; Bespoke</li>
+    <ul class="industries container mx-auto px-6 text-center text-sm font-semibold">
+        <li>Food &amp; Beverage Production</li><li class="sep opacity-40" aria-hidden="true">◆</li><li>Construction &amp; Civil Engineering</li><li class="sep opacity-40" aria-hidden="true">◆</li><li>Pharmaceutical &amp; Process</li><li class="sep opacity-40" aria-hidden="true">◆</li><li>Dairy &amp; Agricultural</li><li class="sep opacity-40" aria-hidden="true">◆</li><li>Architectural &amp; Bespoke</li>
     </ul>
 </div>
 
